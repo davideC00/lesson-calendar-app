@@ -7,10 +7,16 @@ public class LoggedInUser {
 
     private String userId;
     private String displayName;
+    private Type type;
 
-    public LoggedInUser(String userId, String displayName) {
+    public enum Type{
+        SCHEDULER, TEACHER
+    }
+
+    public LoggedInUser(String userId, String displayName, Type type) {
         this.userId = userId;
         this.displayName = displayName;
+        this.type = type;
     }
 
     public String getUserId() {

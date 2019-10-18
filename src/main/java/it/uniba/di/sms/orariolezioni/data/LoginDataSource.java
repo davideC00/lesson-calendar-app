@@ -2,8 +2,6 @@ package it.uniba.di.sms.orariolezioni.data;
 
 import it.uniba.di.sms.orariolezioni.data.model.LoggedInUser;
 
-import java.io.IOException;
-
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
@@ -11,16 +9,32 @@ public class LoginDataSource {
 
     public Result<LoggedInUser> login(String username, String password) {
 
-        try {
-            // TODO: handle loggedInUser authentication
-            LoggedInUser fakeUser =
+        // TODO: handle loggedInUser authentication
+        switch(username){
+            case "scheduler":
+                LoggedInUser scheduler =
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
-        } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+                            "Scheduler",
+                            LoggedInUser.Type.SCHEDULER);
+                return new Result.Success<>(scheduler);
+            case "impedovo":
+                LoggedInUser impedovo =
+                    new LoggedInUser(
+                            java.util.UUID.randomUUID().toString(),
+                            "Donato Impedovo",
+                            LoggedInUser.Type.TEACHER);
+                return new Result.Success<>(impedovo);
+            case "roselli":
+                LoggedInUser roselli =
+                    new LoggedInUser(
+                            java.util.UUID.randomUUID().toString(),
+                            "Teresa Roselli",
+                            LoggedInUser.Type.TEACHER);
+                return new Result.Success<>(roselli);
         }
+
+        return new Result.Error(new Exception("Login Failed"));
     }
 
     public void logout() {

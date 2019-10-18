@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.ui.login.LoginViewModel;
-import it.uniba.di.sms.orariolezioni.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -97,10 +95,14 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+
+                if (actionId == EditorInfo.IME_ACTION_DONE ) {
+                    // The sign button is pressed
                     loginViewModel.login(usernameEditText.getText().toString(),
                             passwordEditText.getText().toString());
                 }
+
                 return false;
             }
         });
@@ -116,9 +118,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome =  getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        // Intent intent = new Intent(this, OrarioScheduler.class);
+        // startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
