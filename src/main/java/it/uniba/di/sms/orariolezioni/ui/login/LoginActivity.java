@@ -3,6 +3,7 @@ package it.uniba.di.sms.orariolezioni.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.OrarioScheduler;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -121,8 +123,8 @@ public class LoginActivity extends AppCompatActivity {
         String welcome =  getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        // Intent intent = new Intent(this, OrarioScheduler.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, OrarioScheduler.class);
+        startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
