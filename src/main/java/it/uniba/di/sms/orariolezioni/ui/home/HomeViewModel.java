@@ -1,4 +1,4 @@
-package it.uniba.di.sms.orariolezioni.data.ui.home;
+package it.uniba.di.sms.orariolezioni.ui.home;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
