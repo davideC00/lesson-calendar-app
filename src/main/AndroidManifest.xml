@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".data.OrarioScheduler"
+            android:name=".ui.OrarioScheduler"
             android:label="@string/title_activity_orario_scheduler"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

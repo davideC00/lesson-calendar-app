@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="it.uniba.di.sms.orariolezioni.data.ui.home.HomeFragment"
+        android:name="it.uniba.di.sms.orariolezioni.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_change_requests"
-        android:name="it.uniba.di.sms.orariolezioni.data.ui.requests.ChangeRequestsFragment"
+        android:name="it.uniba.di.sms.orariolezioni.ui.requests.ChangeRequestsFragment"
         android:label="@string/menu_change_requests"
         tools:layout="@layout/fragment_change_requests" />
 

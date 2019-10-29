@@ -1,4 +1,4 @@
-package it.uniba.di.sms.orariolezioni.data;
+package it.uniba.di.sms.orariolezioni.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

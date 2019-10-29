@@ -1,4 +1,4 @@
-package it.uniba.di.sms.orariolezioni.data.ui.requests;
+package it.uniba.di.sms.orariolezioni.ui.requests;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

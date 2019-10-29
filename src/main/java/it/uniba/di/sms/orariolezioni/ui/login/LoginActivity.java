@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.data.OrarioScheduler;
+import it.uniba.di.sms.orariolezioni.ui.OrarioScheduler;
 
 public class LoginActivity extends AppCompatActivity {
 
