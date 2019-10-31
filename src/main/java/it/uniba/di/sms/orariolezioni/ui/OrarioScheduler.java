@@ -1,8 +1,12 @@
 package it.uniba.di.sms.orariolezioni.ui;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -10,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.ui.addEvent.AddEventFragment;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -33,8 +38,12 @@ public class OrarioScheduler extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO : Add Floating button action
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager
+                        .beginTransaction()
+                        .add(R.id.fragment_add_event_container, new AddEventFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -57,5 +66,14 @@ public class OrarioScheduler extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0){
+            this.finish();
+        }else {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 }

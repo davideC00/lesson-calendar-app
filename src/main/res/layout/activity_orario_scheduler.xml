@@ -22,4 +22,9 @@
         app:headerLayout="@layout/nav_header_orario_scheduler"
         app:menu="@menu/activity_orario_scheduler_drawer" />
 
+    <FrameLayout
+        android:id="@+id/fragment_add_event_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.v4.widget.DrawerLayout>
