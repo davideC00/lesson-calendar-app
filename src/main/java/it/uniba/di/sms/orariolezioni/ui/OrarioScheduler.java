@@ -36,16 +36,16 @@ public class OrarioScheduler extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO Make the fragment unclickable
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .add(R.id.fragment_add_event_container, new AddEventFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
+           @Override
+           public void onClick(View v) {
+               // TODO Make the fragment unclickable
+               FragmentManager fragmentManager = getSupportFragmentManager();
+               fragmentManager
+                       .beginTransaction()
+                       .add(R.id.fragment_add_event_container, new AddEventFragment())
+                       .addToBackStack(null)
+                       .commit();
+           }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
