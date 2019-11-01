@@ -21,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.FrameLayout;
 
 
 public class OrarioScheduler extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class OrarioScheduler extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : Add Floating button action
+                // TODO Make the fragment unclickable
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager
                         .beginTransaction()
