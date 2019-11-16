@@ -1,7 +1,6 @@
 package it.uniba.di.sms.orariolezioni.ui.requests;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,20 @@ import android.arch.lifecycle.ViewModelProviders;
 import java.util.ArrayList;
 
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
-public class ChangeRequestsFragment extends Fragment {
+public class Requests extends Fragment {
 
-    private ChangeRequestsViewModel changeRequestsViewModel;
+    private RequestsViewModel requestsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        changeRequestsViewModel =
-                ViewModelProviders.of(this).get(ChangeRequestsViewModel.class);
+        requestsViewModel =
+                ViewModelProviders.of(this).get(RequestsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_change_requests, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
-        changeRequestsViewModel.getText().observe(this, new Observer<String>() {
+        requestsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -39,9 +39,14 @@ public class ChangeRequestsFragment extends Fragment {
         // TODO connect to the database
         Request request1 = new Request("impedovo", "decarolis", "13:30", "14:00");
         Request request2 = new Request("teacher2", "teacher3", "12:30", "13:00");
-        ArrayList<Request> requests = new ArrayList<>();
-        requests.add(request1);
-        requests.add(request2);
+        Request request3 = new Request("impedovo", "decarolis", "11:30", "14:00");
+
+        DbHandler db = new DbHandler(getContext());
+        db.insertRequest(request1, request2, request3);
+        ArrayList<Request> requests = db.getAllRequests();
+
+        // requests = (ArrayList<Request>) requestsViewModel.getAllRequests();
+
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
 
         ListView listView = (ListView) root.findViewById(R.id.lvRequests);
@@ -49,4 +54,5 @@ public class ChangeRequestsFragment extends Fragment {
 
         return root;
     }
+
 }

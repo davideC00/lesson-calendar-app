@@ -5,25 +5,19 @@ package it.uniba.di.sms.orariolezioni.data.model;
  */
 public class LoggedInUser {
 
-    private String userId;
-    private String displayName;
+    private String username;
     private Type type;
 
     public enum Type{
         SCHEDULER, TEACHER
     }
 
-    public LoggedInUser(String userId, String displayName, Type type) {
-        this.userId = userId;
-        this.displayName = displayName;
+    public LoggedInUser(String username, Type type) {
+        this.username = username;
         this.type = type;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getDisplayName() {
-        return displayName;
+    public String getUsername() {
+        return username;
     }
 }

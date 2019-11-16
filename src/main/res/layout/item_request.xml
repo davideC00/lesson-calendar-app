@@ -114,9 +114,11 @@
                     android:layout_weight="4"/>
 
                 <ImageButton
+                    android:id="@+id/btn_delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:clickable="true"
                     android:layout_marginHorizontal="@dimen/padding_time"
                     android:src="@drawable/ic_close" />
 
@@ -125,6 +127,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/padding_time"
+                    android:clickable="true"
                     android:layout_weight="2"
                     android:src="@drawable/ic_done_black_24dp"/>
 
