@@ -2,63 +2,81 @@ package it.uniba.di.sms.orariolezioni.ui.requests;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
-public class RequestsAdapter extends ArrayAdapter<Request>{
+public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestViewHolder> {
 
-    List<Request> requests;
+    private LayoutInflater mInflater;
+    private ArrayList<Request> mRequests;
 
-    public RequestsAdapter(Context context, List<Request> requests){
-        super(context, 0, requests);
-        this.requests = requests;
+    private DbHandler db;
+
+    RequestsAdapter(Context context, ArrayList<Request> requests){
+        this.mInflater = LayoutInflater.from(context);
+        this.mRequests = requests;
+        this.db = new DbHandler(context);
     }
+
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = mInflater.inflate(R.layout.item_request, viewGroup, false);
+        return new RequestViewHolder(view);
+    }
 
-        final Request request = getItem(position);
+    @Override
+    public void onBindViewHolder(@NonNull final RequestViewHolder requestHolder, int position) {
+        final Request request = mRequests.get(position);
 
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_request, parent, false);
-        }
-
-        EditText etFromTime = (EditText) convertView.findViewById(R.id.etFromTime);
-        EditText etToTime = (EditText) convertView.findViewById(R.id.etToTime);
-        TextView tvFromTeacher = (TextView) convertView.findViewById(R.id.tvFromTeacher);
-        TextView tvToTeacher = (TextView) convertView.findViewById(R.id.tvToTeacher);
-        ImageButton btnDelete = convertView.findViewById(R.id.btn_delete);
-
-        etFromTime.setText(request.fromTime);
-        etToTime.setText(request.toTime);
-        tvFromTeacher.setText(request.fromTeacher);
-        tvToTeacher.setText(request.toTeacher);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        requestHolder.etFromTime.setText(request.fromTime);
+        requestHolder.etToTime.setText(request.toTime);
+        requestHolder.tvFromTeacher.setText(request.fromTeacher);
+        requestHolder.tvToTeacher.setText(request.toTeacher);
+        requestHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DbHandler db = new DbHandler(getContext());
                 db.deleteRequest(request);
-                requests.remove(position);
-                notifyDataSetChanged();
+                mRequests.remove(requestHolder.getAdapterPosition());
+                notifyItemRemoved(requestHolder.getAdapterPosition());
             }
         });
 
-        return convertView;
     }
 
+    @Override
+    public int getItemCount() {
+        return mRequests.size();
+    }
+
+    public class RequestViewHolder extends RecyclerView.ViewHolder{
+
+        EditText etFromTime;
+        EditText etToTime;
+        TextView tvFromTeacher;
+        TextView tvToTeacher;
+        ImageButton btnDelete;
+
+        public RequestViewHolder(@NonNull View itemView) {
+            super(itemView);
+            etFromTime = (EditText) itemView.findViewById(R.id.etFromTime);
+            etToTime = (EditText) itemView.findViewById(R.id.etToTime);
+            tvFromTeacher = (TextView) itemView.findViewById(R.id.tvFromTeacher);
+            tvToTeacher = (TextView) itemView.findViewById(R.id.tvToTeacher);
+            btnDelete = (ImageButton) itemView.findViewById(R.id.btn_delete);
+
+        }
+    }
 }

@@ -1,10 +1,11 @@
 package it.uniba.di.sms.orariolezioni.ui.requests;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.support.annotation.Nullable;
 import android.support.annotation.NonNull;
@@ -47,10 +48,17 @@ public class Requests extends Fragment {
 
         // requests = (ArrayList<Request>) requestsViewModel.getAllRequests();
 
+        /* LIST VIEW CODE
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
 
         ListView listView = (ListView) root.findViewById(R.id.lvRequests);
         listView.setAdapter(adapter);
+        */
+        RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
+        RecyclerView recyclerView= (RecyclerView)root.findViewById(R.id.rvRequests);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
 
         return root;
     }
