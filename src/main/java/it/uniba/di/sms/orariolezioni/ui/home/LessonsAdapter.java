@@ -3,10 +3,13 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +43,10 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         String time = localDateFormat.format(lesson.fromDate)
                 + "-" + localDateFormat.format(lesson.toDate);
         tvLessonTime.setText(time);
+
+        ViewGroup.LayoutParams params =  convertView.getLayoutParams();
+        params.height = (parent.getHeight()/24) * 23;
+        convertView.setLayoutParams(params);
 
         return convertView;
     }

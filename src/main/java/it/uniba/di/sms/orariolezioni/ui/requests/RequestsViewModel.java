@@ -22,9 +22,7 @@ public class RequestsViewModel extends AndroidViewModel {
         super(application);
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
-        Log.i("qwerty", "Salve 0");
         //mRepository = new RequestsRepository(application);
-        Log.i("qwerty", "Salve 1");
         //mAllRequests = mRepository.getAllRequests();
     }
 

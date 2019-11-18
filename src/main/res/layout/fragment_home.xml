@@ -51,28 +51,27 @@
     <ScrollView
         android:id="@+id/svLessons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fillViewport="false"
         android:orientation="vertical"
         android:layout_alignTop="@id/text_home"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="@dimen/padding_time">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <include android:id="@+id/calendar" layout="@layout/calendar"/>
 
             <ListView
                 android:id="@+id/lvLessons"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignTop="@id/calendar"
-                android:layout_marginLeft="50dp">
+                android:layout_marginStart="60dp">
             </ListView>
 
-        </RelativeLayout>
+        </FrameLayout>
 
 
     </ScrollView>
