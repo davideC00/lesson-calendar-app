@@ -54,6 +54,8 @@ public class Requests extends Fragment {
         ListView listView = (ListView) root.findViewById(R.id.lvRequests);
         listView.setAdapter(adapter);
         */
+
+        // TODO make request adapter retrive data from viewmodel
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
         RecyclerView recyclerView= (RecyclerView)root.findViewById(R.id.rvRequests);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

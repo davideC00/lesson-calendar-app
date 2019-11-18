@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+     <!-- TODO Make height = match_parent -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRequests"
         android:layout_width="match_parent"
