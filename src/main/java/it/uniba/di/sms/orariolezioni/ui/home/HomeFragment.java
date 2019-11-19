@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         // TODO retrieve data from viewmodel
         Lesson lesson = new Lesson("decarolis",
                 (new GregorianCalendar(2012, 12, 3, 13, 30, 0)).getTime(),
-                (new GregorianCalendar(2012, 12, 3, 14, 30, 0)).getTime()) ;
+                (new GregorianCalendar(2012, 12, 3, 17, 48, 0)).getTime()) ;
 
         // Construct the data source
         ArrayList<Lesson> lessons = new ArrayList<Lesson>();

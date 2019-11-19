@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rectangle"
-    android:paddingTop="5dip" >
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingTop="2dp">
 
     <TextView
         android:id="@+id/tvLessonTeacher"
@@ -11,19 +13,10 @@
         android:layout_height="wrap_content"
         android:text="impedovo"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:minHeight="30dp"
+        android:textSize="@dimen/time_textSize"
         android:textStyle="bold"
         android:typeface="sans" />
-
-    <TextView
-        android:id="@+id/tvLessonTime"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvLessonTeacher"
-        android:layout_marginTop="1dip"
-        android:text="13:40-15:40"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
 
 
 </RelativeLayout>

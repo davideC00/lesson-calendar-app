@@ -4,20 +4,24 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:divider="@drawable/empty_tall_divider"
-    android:showDividers="middle|beginning|end">
+    android:showDividers="middle">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_1" />
+            android:text="@string/time_1"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider1"
@@ -35,10 +39,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_2" />
+            android:text="@string/time_2"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider2"
@@ -57,10 +62,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_3" />
+            android:text="@string/time_3"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider3"
@@ -78,10 +84,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_4" />
+            android:text="@string/time_4"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider4"
@@ -99,10 +106,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_5" />
+            android:text="@string/time_5"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider5"
@@ -120,10 +128,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_6" />
+            android:text="@string/time_6"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider6"
@@ -141,10 +150,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_7" />
+            android:text="@string/time_7"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider7"
@@ -162,10 +172,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_8" />
+            android:text="@string/time_8"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider8"
@@ -184,10 +195,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_9" />
+            android:text="@string/time_9"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider9"
@@ -205,10 +217,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_10" />
+            android:text="@string/time_10"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider10"
@@ -226,10 +239,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_11" />
+            android:text="@string/time_11"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider11"
@@ -247,10 +261,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_12" />
+            android:text="@string/time_12"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider12"
@@ -268,10 +283,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_13" />
+            android:text="@string/time_13"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider13"
@@ -289,10 +305,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_14" />
+            android:text="@string/time_14"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider14"
@@ -310,10 +327,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_15" />
+            android:text="@string/time_15"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider15"
@@ -332,10 +350,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_16" />
+            android:text="@string/time_16"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider16"
@@ -353,10 +372,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_17" />
+            android:text="@string/time_17"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider17"
@@ -374,10 +394,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_18" />
+            android:text="@string/time_18"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider18"
@@ -395,10 +416,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_19" />
+            android:text="@string/time_19"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider19"
@@ -417,10 +439,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_20" />
+            android:text="@string/time_20"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider20"
@@ -439,10 +462,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_21" />
+            android:text="@string/time_21"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider21"
@@ -461,10 +485,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_22" />
+            android:text="@string/time_22"
+            />
 
         <View
             android:id="@+id/divider22"
@@ -482,10 +507,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/time_tvHeight"
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
-            android:text="@string/time_23" />
+            android:text="@string/time_23"
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider23"
@@ -495,5 +521,9 @@
             android:layout_gravity="center"/>
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
 </LinearLayout>

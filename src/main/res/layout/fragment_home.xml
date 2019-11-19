@@ -62,8 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <include android:id="@+id/calendar" layout="@layout/calendar"/>
+            <include android:id="@+id/calendar" layout="@layout/calendar" />
 
             <ListView
                 android:id="@+id/lvLessons"
