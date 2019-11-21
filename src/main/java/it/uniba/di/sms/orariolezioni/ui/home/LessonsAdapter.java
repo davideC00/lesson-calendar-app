@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -45,7 +43,7 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
 
 
-        // the duration in hours is with 000 more so later there are less round errors
+        // the duration(hours) is with 000 more so later there are less round errors
         // the real formula should have been (60*60*1000)
         long durationHours = (lesson.toDate.getTime() - lesson.fromDate.getTime())/(60 * 60);
 
@@ -61,9 +59,7 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         if(params.height < tvLessonTeacher.getMinHeight()) {
             params.height = tvLessonTeacher.getMinHeight();
         }
-
         convertView.setLayoutParams(params);
-
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(lesson.fromDate);
@@ -71,7 +67,17 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         int minutes = (calendar.get(Calendar.MINUTE)*1000)/60;
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;
 
-        convertView.setY(((parent.getHeight()/24)*(hours + minutes))/1000);
+        // Distance beetween prev and actual item in listView
+        float distanceY = ((parent.getHeight()/24)*(hours + minutes))/1000;
+        if(position != 0){
+            //if it's not the first lesson take the previus one and calculate the destance from it
+            View prevView = parent.getChildAt(position-1);
+            distanceY = distanceY - prevView.getHeight();
+            Log.i("qwerty", "distancey " + ((parent.getHeight()/24)*(hours + minutes))/1000
+                    + " prevY " + prevView.getY() + " prevHei " + prevView.getHeight());
+        }
+
+        convertView.setY(distanceY);
 
         return convertView;
     }
