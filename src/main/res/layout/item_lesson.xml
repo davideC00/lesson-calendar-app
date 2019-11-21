@@ -4,19 +4,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/rectangle"
     android:paddingStart="5dp"
-    android:paddingEnd="5dp"
-    android:paddingTop="2dp">
+    android:paddingEnd="5dp">
 
     <TextView
         android:id="@+id/tvLessonTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="impedovo"
+        android:gravity="center"
         android:textColor="#FFFFFF"
         android:minHeight="30dp"
         android:textSize="@dimen/time_textSize"
         android:textStyle="bold"
         android:typeface="sans" />
 
+    <TextView
+        android:id="@+id/tvLessonTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@id/tvLessonTeacher"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/time_textSize" />
 
 </RelativeLayout>

@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
@@ -35,12 +37,11 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         }
 
         TextView tvLessonTeacher = convertView.findViewById(R.id.tvLessonTeacher);
+        TextView tvLessonTime = convertView.findViewById(R.id.tvLessonTime);
 
         tvLessonTeacher.setText(lesson.teacher);
 
 
-        // TODO delete this
-        SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
 
 
         // the duration(hours) is with 000 more so later there are less round errors
@@ -58,8 +59,13 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         // Check if the height is less the TextView min
         if(params.height < tvLessonTeacher.getMinHeight()) {
             params.height = tvLessonTeacher.getMinHeight();
+        }else if (params.height > tvLessonTime.getTextSize()*4){
+            // There is the space for displaying the time as text
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm", Locale.ITALY);
+            String time = localDateFormat.format(lesson.fromDate) + "-"
+                    + localDateFormat.format(lesson.toDate);
+            tvLessonTime.setText(time);
         }
-        convertView.setLayoutParams(params);
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(lesson.fromDate);
