@@ -4,13 +4,27 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Lesson {
+    
+    public int id;
     public String teacher;
-    public Date fromDate;
-    public Date toDate;
-
-    public Lesson(String teacher, Date fromDate, Date toDate){
+    public String subject;
+    public Date fromTime;
+    public Date toTime;
+    
+    
+    public Lesson(String teacher, String subject, Date fromTime, Date toTime){
         this.teacher = teacher;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.subject = subject;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
+    // TODO check if this can be made deleted
+    public Lesson(int id, String teacher, String subject, Date fromTime, Date toTime){
+        this.id = id;
+        this.teacher = teacher;
+        this.subject = subject;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 }

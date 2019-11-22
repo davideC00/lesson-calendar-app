@@ -43,10 +43,10 @@ public class HomeFragment extends Fragment {
         });
 
         // TODO retrieve data from viewmodel
-        Lesson lesson = new Lesson("teacher1",
+        Lesson lesson = new Lesson("teacher1", "math",
                 (new GregorianCalendar(2012, 12, 3, 15, 30, 0)).getTime(),
                 (new GregorianCalendar(2012, 12, 3, 17, 48, 0)).getTime());
-        Lesson lesson2 = new Lesson( "teacher2",
+        Lesson lesson2 = new Lesson( "teacher2", "science",
                 (new GregorianCalendar(2012, 12, 3, 17, 38, 0)).getTime(),
                 (new GregorianCalendar(2012, 12, 3, 19, 48, 0)).getTime());
 

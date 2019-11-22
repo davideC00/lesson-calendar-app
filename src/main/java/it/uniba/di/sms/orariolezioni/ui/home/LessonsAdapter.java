@@ -43,7 +43,7 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
 
         // the duration(hours) is with 000 more so later there are less round errors
         // the real formula should have been (60*60*1000)
-        long durationHours = (lesson.toDate.getTime() - lesson.fromDate.getTime())/(60 * 60);
+        long durationHours = (lesson.toTime.getTime() - lesson.fromTime.getTime())/(60 * 60);
 
         //Check if the duration of a lesson is greater than 24h
         if(durationHours > 24000){
@@ -60,13 +60,13 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         }else if (params.height > tvLessonTime.getTextSize()*4){
             // There is the space for displaying the time as text
             SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm", Locale.ITALY);
-            String time = localDateFormat.format(lesson.fromDate) + "-"
-                    + localDateFormat.format(lesson.toDate);
+            String time = localDateFormat.format(lesson.fromTime) + "-"
+                    + localDateFormat.format(lesson.toTime);
             tvLessonTime.setText(time);
         }
 
         Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(lesson.fromDate);
+        calendar.setTime(lesson.fromTime);
         // the minutes and hours are added three 0s more so later there are less round errors
         int minutes = (calendar.get(Calendar.MINUTE)*1000)/60;
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;

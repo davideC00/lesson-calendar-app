@@ -56,6 +56,7 @@ public class Requests extends Fragment {
         */
 
         // TODO make request adapter retrive data from viewmodel
+        // TODO Put setHasFixed true and item animation
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
         RecyclerView recyclerView= (RecyclerView)root.findViewById(R.id.rvRequests);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

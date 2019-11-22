@@ -7,40 +7,36 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
+
+import static it.uniba.di.sms.orariolezioni.data.DbContract.*;
+
 
 public class DbHandler extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "orarioLezionidb";
-    private static final String TABLE_REQUEST = "Request";
-    private static final String KEY_ID = "id";
-    private static final String KEY_FROM_TEACHER = "from_teacher";
-    private static final String KEY_TO_TEACHER = "to_teacher";
-    private static final String KEY_FROM_TIME = "from_time";
-    private static final String KEY_TO_TIME = "to_time";
+
 
     public DbHandler(Context context){
-        super(context,DB_NAME, null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_REQUEST + "("
-                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_FROM_TEACHER + " VARCHAR(40),"
-                + KEY_TO_TEACHER + " VARCHAR(40),"
-                + KEY_FROM_TIME + " DATETIME,"
-                + KEY_TO_TIME + " DATETIME " + ")";
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(DbContract.Lesson.CREATE_TABLE);
+        db.execSQL(DbContract.Request.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if exist
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REQUEST);
+        db.execSQL(DbContract.Lesson.DELETE_TABLE);
+        db.execSQL(DbContract.Request.DELETE_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -50,12 +46,12 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         for (Request request : requests){
-            cValues.put(KEY_FROM_TEACHER, request.fromTeacher);
-            cValues.put(KEY_TO_TEACHER, request.toTeacher);
-            cValues.put(KEY_FROM_TIME, request.fromTime);
-            cValues.put(KEY_TO_TIME, request.toTime);
+            cValues.put(DbContract.Request.KEY_FROM_TEACHER, request.fromTeacher);
+            cValues.put(DbContract.Request.KEY_TO_TEACHER, request.toTeacher);
+            cValues.put(DbContract.Request.KEY_FROM_TIME, request.fromTime);
+            cValues.put(DbContract.Request.KEY_TO_TIME, request.toTime);
 
-            db.insert(TABLE_REQUEST, null, cValues);
+            db.insert(DbContract.Request.TABLE_NAME, null, cValues);
         }
 
         db.close();
@@ -64,15 +60,14 @@ public class DbHandler extends SQLiteOpenHelper {
     public ArrayList<Request> getAllRequests(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
-        String rawQuery = "SELECT * FROM " + TABLE_REQUEST;
-        Cursor cursor = db.rawQuery(rawQuery, null);
+        Cursor cursor = db.rawQuery(DbContract.Request.GET_ALL_REUESTS, null);
         while(cursor.moveToNext()){
             Request request = new Request(
-                    cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                    cursor.getString(cursor.getColumnIndex(KEY_FROM_TEACHER)),
-                    cursor.getString(cursor.getColumnIndex(KEY_TO_TEACHER)),
-                    cursor.getString(cursor.getColumnIndex(KEY_FROM_TIME)),
-                    cursor.getString(cursor.getColumnIndex(KEY_TO_TIME))
+                    cursor.getInt(cursor.getColumnIndex(DbContract.Request.KEY_ID)),
+                    cursor.getString(cursor.getColumnIndex(DbContract.Request.KEY_FROM_TEACHER)),
+                    cursor.getString(cursor.getColumnIndex(DbContract.Request.KEY_TO_TEACHER)),
+                    cursor.getString(cursor.getColumnIndex(DbContract.Request.KEY_FROM_TIME)),
+                    cursor.getString(cursor.getColumnIndex(DbContract.Request.KEY_TO_TIME))
             );
             requests.add(request);
         }
@@ -82,9 +77,21 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public void deleteRequest(Request request){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_REQUEST, KEY_ID+" = ?",new String[]{String.valueOf(request.id)});
+        db.delete(DbContract.Request.TABLE_NAME, DbContract.Request.KEY_ID+" = ?",new String[]{String.valueOf(request.id)});
         db.close();
     }
 
+    public void insertLesson(Lesson... lessons){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cValues = new ContentValues();
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ITALY);
+        for (Lesson lesson : lessons){
+            cValues.put(DbContract.Lesson.KEY_TEACHER, lesson.teacher);
+            cValues.put(DbContract.Lesson.KEY_SUBJECT, lesson.subject);
+            cValues.put(DbContract.Lesson.KEY_FROM_TIME, dateFormat.format(lesson.fromTime));
+            cValues.put(DbContract.Lesson.KEY_TO_TIME, dateFormat.format(lesson.toTime));
 
+            db.insert(DbContract.Lesson.TABLE_NAME, null, cValues);
+        }
+    }
 }
