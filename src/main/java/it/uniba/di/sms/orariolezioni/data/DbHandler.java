@@ -60,7 +60,7 @@ public class DbHandler extends SQLiteOpenHelper {
     public ArrayList<Request> getAllRequests(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
-        Cursor cursor = db.rawQuery(DbContract.Request.GET_ALL_REUESTS, null);
+        Cursor cursor = db.rawQuery(DbContract.Request.GET_ALL_REQUESTS, null);
         while(cursor.moveToNext()){
             Request request = new Request(
                     cursor.getInt(cursor.getColumnIndex(DbContract.Request.KEY_ID)),

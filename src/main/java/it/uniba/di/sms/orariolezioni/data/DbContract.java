@@ -40,6 +40,6 @@ class DbContract {
             + KEY_FROM_TIME + " DATETIME,"
             + KEY_TO_TIME + " DATETIME " + ")";
         static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
-        static final String GET_ALL_REUESTS = "SELECT * FROM " + TABLE_NAME;
+        static final String GET_ALL_REQUESTS = "SELECT * FROM " + TABLE_NAME;
     }
 }
