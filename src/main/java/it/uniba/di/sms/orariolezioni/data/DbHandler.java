@@ -85,4 +85,6 @@ public class DbHandler extends SQLiteOpenHelper {
         db.delete(TABLE_REQUEST, KEY_ID+" = ?",new String[]{String.valueOf(request.id)});
         db.close();
     }
+
+
 }

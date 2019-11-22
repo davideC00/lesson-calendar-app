@@ -21,7 +21,6 @@
         android:id="@+id/tvLessonTime"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/appbar_scrolling_view_behavior"
         android:layout_below="@id/tvLessonTeacher"
         android:textColor="#FFFFFF"
         android:textSize="@dimen/time_textSize" />

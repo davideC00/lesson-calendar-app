@@ -41,9 +41,6 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
 
         tvLessonTeacher.setText(lesson.teacher);
 
-
-
-
         // the duration(hours) is with 000 more so later there are less round errors
         // the real formula should have been (60*60*1000)
         long durationHours = (lesson.toDate.getTime() - lesson.fromDate.getTime())/(60 * 60);
@@ -54,10 +51,11 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         }
 
         ViewGroup.LayoutParams params =  convertView.getLayoutParams();
-        params.height = ((parent.getHeight()/24)*(int)durationHours)/1000;
+        params.height = getPositionFromTime(parent.getHeight(), (int)durationHours);
 
-        // Check if the height is less the TextView min
+
         if(params.height < tvLessonTeacher.getMinHeight()) {
+            // Restore minHeight
             params.height = tvLessonTeacher.getMinHeight();
         }else if (params.height > tvLessonTime.getTextSize()*4){
             // There is the space for displaying the time as text
@@ -74,17 +72,21 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;
 
         // Distance beetween prev and actual item in listView
-        float distanceY = ((parent.getHeight()/24)*(hours + minutes))/1000;
+        //float distanceY = ((parent.getHeight()/24)*(hours + minutes))/1000;
+        int distanceY = getPositionFromTime(parent.getHeight(), hours + minutes);
         if(position != 0){
-            //if it's not the first lesson take the previus one and calculate the destance from it
+            //if it's not the first lesson take the previus one and calculate the correct distanceY
             View prevView = parent.getChildAt(position-1);
             distanceY = distanceY - prevView.getHeight();
-            Log.i("qwerty", "distancey " + ((parent.getHeight()/24)*(hours + minutes))/1000
-                    + " prevY " + prevView.getY() + " prevHei " + prevView.getHeight());
         }
 
         convertView.setY(distanceY);
 
         return convertView;
+    }
+
+    // @param time has 000's more
+    private int getPositionFromTime(int totalLength, int time){
+        return ((totalLength/24)*time)/1000;
     }
 }
