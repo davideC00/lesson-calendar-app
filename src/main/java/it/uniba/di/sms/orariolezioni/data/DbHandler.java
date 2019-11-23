@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
@@ -72,6 +74,8 @@ public class DbHandler extends SQLiteOpenHelper {
             requests.add(request);
         }
 
+        cursor.close();
+
         return requests;
     }
 
@@ -84,7 +88,7 @@ public class DbHandler extends SQLiteOpenHelper {
     public void insertLesson(Lesson... lessons){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.ITALY);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ITALY);
         for (Lesson lesson : lessons){
             cValues.put(DbContract.Lesson.KEY_TEACHER, lesson.teacher);
             cValues.put(DbContract.Lesson.KEY_SUBJECT, lesson.subject);
@@ -93,5 +97,42 @@ public class DbHandler extends SQLiteOpenHelper {
 
             db.insert(DbContract.Lesson.TABLE_NAME, null, cValues);
         }
+
+        db.close();
+    }
+
+    public ArrayList<Lesson> getAllLessonFor(Date day) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.ITALY);
+        ArrayList<Lesson> lessons = new ArrayList<>();
+
+        // SELECT * FROM Lesson WHERE from_time = 'date%'
+        String rawQuery = "SELECT * FROM " + DbContract.Lesson.TABLE_NAME
+                + " WHERE " + DbContract.Lesson.KEY_FROM_TIME
+                + " LIKE '"+ dateFormat.format(day.getTime()) + "%'";
+        Cursor cursor = db.rawQuery(rawQuery, null);
+
+        // Changed the date format for saving properly the date
+        dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ITALY);
+        while(cursor.moveToNext()){
+            Lesson lesson = null;
+            try {
+                lesson = new Lesson(
+                        cursor.getInt(cursor.getColumnIndex(DbContract.Request.KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(DbContract.Lesson.KEY_TEACHER)),
+                        cursor.getString(cursor.getColumnIndex(DbContract.Lesson.KEY_SUBJECT)),
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(DbContract.Lesson.KEY_FROM_TIME))),
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(DbContract.Lesson.KEY_TO_TIME)))
+                );
+            } catch (ParseException e) {
+                // If there is a parse error skip the lesson
+                e.printStackTrace();
+                continue;
+            }
+            lessons.add(lesson);
+        }
+        cursor.close();
+
+        return lessons;
     }
 }

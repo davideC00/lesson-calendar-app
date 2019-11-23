@@ -3,10 +3,7 @@ package it.uniba.di.sms.orariolezioni.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -14,14 +11,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.ui.addEvent.AddEventFragment;
+import it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.FrameLayout;
 
 
 public class OrarioScheduler extends AppCompatActivity {
@@ -42,12 +38,14 @@ public class OrarioScheduler extends AppCompatActivity {
                FragmentManager fragmentManager = getSupportFragmentManager();
                fragmentManager
                        .beginTransaction()
-                       .add(R.id.fragment_add_event_container, new AddEventFragment())
+                       .add(R.id.fragment_add_event_container, new AddLessonFragment())
                        .addToBackStack(null)
                        .commit();
+
            }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

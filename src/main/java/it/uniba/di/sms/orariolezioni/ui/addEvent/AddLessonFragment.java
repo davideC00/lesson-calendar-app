@@ -3,17 +3,19 @@ package it.uniba.di.sms.orariolezioni.ui.addEvent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import it.uniba.di.sms.orariolezioni.R;
 
-public class AddEventFragment extends Fragment {
+public class AddLessonFragment extends Fragment {
 
 
-    public AddEventFragment() {
+    public AddLessonFragment() {
         // Required empty public constructor
     }
 
@@ -21,7 +23,14 @@ public class AddEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_event, container, false);
+        View root = inflater.inflate(R.layout.fragment_add_lesson, container, false);
+
+        root.setFocusable(true);
+        root.setClickable(true);
+
+        return root;
+
     }
+
 
 }

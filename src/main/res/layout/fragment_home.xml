@@ -67,10 +67,9 @@
             <ListView
                 android:id="@+id/lvLessons"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="970dp"
                 android:layout_marginStart="60dp"
-                android:divider="@null">
-            </ListView>
+                android:divider="@null"></ListView>
 
         </FrameLayout>
 
