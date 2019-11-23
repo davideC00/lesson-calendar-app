@@ -1,6 +1,10 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +26,14 @@ import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 
 public class HomeFragment extends Fragment {
 
+    // Num of days to load in ViewPager
+    private static final int NUM_PAGES= 3;
+
+    private ViewPager mPager;
+
+    private PagerAdapter pagerAdapter;
+
+
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -37,28 +49,29 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // TODO retrieve data from viewmodel
-        Lesson lesson = new Lesson("teacher1", "math",
-                (new GregorianCalendar(2012, 12, 3, 15, 30, 0)).getTime(),
-                (new GregorianCalendar(2012, 12, 3, 17, 48, 0)).getTime());
-        Lesson lesson2 = new Lesson( "teacher2", "science",
-                (new GregorianCalendar(2012, 12, 3, 17, 38, 0)).getTime(),
-                (new GregorianCalendar(2012, 12, 3, 19, 48, 0)).getTime());
-
-
-        // Construct the data source
-        ArrayList<Lesson> lessons = new ArrayList<>();
-        //lessons.add(lesson);
-        //lessons.add(lesson2);
-        DbHandler db = new DbHandler(getContext());
-        //db.insertLesson(lesson,lesson2);
-        lessons = db.getAllLessonFor(new GregorianCalendar(2012, 12, 3).getTime());
-        // Create the adapter to convert the array to views
-        LessonsAdapter adapter = new LessonsAdapter(getContext(), lessons);
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) root.findViewById(R.id.lvLessons);
-        listView.setAdapter(adapter);
+        mPager = root.findViewById(R.id.vp_days);
+        pagerAdapter = new DaySlidePageAdapter(this.getChildFragmentManager());
+        mPager.setAdapter(pagerAdapter);
+        // Center the DatSlidePager
+        mPager.setCurrentItem(1);
 
         return root;
+    }
+
+    private class DaySlidePageAdapter extends FragmentStatePagerAdapter{
+
+        public DaySlidePageAdapter(FragmentManager fragmentManager){
+            super(fragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return new DaySlidePageFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 }
