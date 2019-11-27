@@ -24,8 +24,6 @@ public class DaySlidePageAdapter extends  FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position)
     {
-        Log.i("qwerty", "position "+ position);
-
         if(position < LOOPS_COUNT/2){
             // it is the left from the central page
             position = LOOPS_COUNT / 2 - position - 1; // e.g. 1000/2 - 498 - 1 = 2 give the corresponding position in the array mLeftDates

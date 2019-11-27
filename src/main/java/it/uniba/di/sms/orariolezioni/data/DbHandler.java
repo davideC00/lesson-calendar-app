@@ -87,6 +87,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public void insertLesson(Lesson... lessons){
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM Lesson");
         ContentValues cValues = new ContentValues();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ITALY);
         for (Lesson lesson : lessons){

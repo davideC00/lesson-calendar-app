@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +24,6 @@ public class DaySlidePageFragment extends Fragment {
 
     public static DaySlidePageFragment newInstance(Date date){
         DaySlidePageFragment f = new DaySlidePageFragment();
-        Log.i("qwerty", date.toString());
         Bundle args = new Bundle();
         args.putLong("date", date.getTime());
         f.setArguments(args);
@@ -48,17 +46,21 @@ public class DaySlidePageFragment extends Fragment {
 
         // TODO retrieve data from viewmodel
         Lesson lesson = new Lesson("teacher1", "math",
-                (new GregorianCalendar(2012, 12, 3, 15, 30, 0)).getTime(),
-                (new GregorianCalendar(2012, 12, 3, 17, 48, 0)).getTime());
+                (new GregorianCalendar(2019, 10, 27, 15, 30, 0)).getTime(),
+                (new GregorianCalendar(2019, 10, 27, 17, 48, 0)).getTime());
         Lesson lesson2 = new Lesson( "teacher2", "science",
-                (new GregorianCalendar(2012, 12, 3, 17, 38, 0)).getTime(),
-                (new GregorianCalendar(2012, 12, 3, 19, 48, 0)).getTime());
+                (new GregorianCalendar(2019, 10, 26, 8, 30, 0)).getTime(),
+                (new GregorianCalendar(2019, 10, 26, 9, 55, 0)).getTime());
+        Lesson lesson3 = new Lesson( "teacher3", "science",
+                (new GregorianCalendar(2019, 10, 25, 0, 0, 0)).getTime(),
+                (new GregorianCalendar(2019, 10, 25, 24, 0, 0)).getTime());
 
 
         // Construct the data source
         ArrayList<Lesson> lessons = new ArrayList<>();
         DbHandler db = new DbHandler(getContext());
-        lessons = db.getAllLessonFor(new GregorianCalendar(2012, 12, 3).getTime());
+        db.insertLesson(lesson, lesson2, lesson3);
+        lessons = db.getAllLessonFor(mDate);
         // Create the adapter to convert the array to views
         LessonsAdapter adapter = new LessonsAdapter(getContext(), lessons);
         // Attach the adapter to a ListView
