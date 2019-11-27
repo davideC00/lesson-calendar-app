@@ -1,19 +1,11 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.support.annotation.Nullable;
 import android.support.annotation.NonNull;
@@ -22,15 +14,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.data.DbHandler;
-import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 
 public class HomeFragment extends Fragment {
 
@@ -38,8 +26,12 @@ public class HomeFragment extends Fragment {
 
     private DaySlidePageAdapter pagerAdapter;
 
+    // Initialized to the central page
     private int lastPosition = pagerAdapter.LOOPS_COUNT/2;
+    private int rightLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max right position reached
+    private int leftLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max left position reached
 
+    // The current date of the page viewed
     private Date mCurrentDate = new Date();
 
     private HomeViewModel homeViewModel;
@@ -57,44 +49,75 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Put the correct date for the central page (First page viewed)
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
         tvDate.setText(formatter.format(mCurrentDate));
 
         mPager = root.findViewById(R.id.vp_days);
-        ArrayList<Date> dates = new ArrayList<>();
-        dates.add(new Date());
-        dates.add(new Date());
-        dates.add(new Date());
-        pagerAdapter = new DaySlidePageAdapter(this.getChildFragmentManager(), dates);
+        pagerAdapter = new DaySlidePageAdapter(this.getChildFragmentManager(), mCurrentDate);
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(mCurrentDate);
+
+        // Add the date for the central's left page of central
+        c.add(Calendar.DATE, -1);
+        pagerAdapter.addLeftDate(c.getTime());
+
+        // Add the date for the central's right page of central
+        c.add(Calendar.DATE, 2);
+        pagerAdapter.addRightDate(c.getTime());
+
         mPager.setAdapter(pagerAdapter);
-        mPager.setCurrentItem(lastPosition, false);
+        // Set central page
+        mPager.setCurrentItem(pagerAdapter.getCount()/2, false);
 
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
+            public void onPageScrolled(int position, float v, int i1) {
             }
 
             @Override
             public void onPageSelected(int position) {
                 Calendar c = Calendar.getInstance();
                 c.setTime(mCurrentDate);
-                AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
+
+                // Animation
+                AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f );
                 fadeIn.setDuration(400);
                 fadeIn.setFillAfter(true);
+
                 if(lastPosition > position){
+                    // Swipe left
+                    // Change the date of the left page
                     c.add(Calendar.DATE, -1);
                     tvDate.startAnimation(fadeIn);
                     tvDate.setText(formatter.format(c.getTime()));
-                }
-                if(lastPosition < position){
+                }else if(lastPosition < position ){
+                    // Swipe right
+                    // Change the date of the right page
                     c.add(Calendar.DATE, 1);
                     tvDate.startAnimation(fadeIn);
                     tvDate.setText(formatter.format(c.getTime()));
                 }
-                mCurrentDate = c.getTime();
                 lastPosition = position;
+                mCurrentDate = c.getTime();
+
+                if(leftLastPosition > position ){
+                    // Subtract another -1 because this refers to the second left page from the current one
+                    c.add(Calendar.DATE, -1);
+                    // Add the date to te adapter's list
+                    pagerAdapter.addLeftDate(c.getTime());
+                    leftLastPosition = position;
+                }else if(rightLastPosition < position ){
+                    // Add another 1 because this refers to the second right page from the current one
+                    c.add(Calendar.DATE, 1);
+                    // Add the date to te adapter's list
+                    pagerAdapter.addRightDate(c.getTime());
+                    rightLastPosition = position;
+                }
+                pagerAdapter.notifyDataSetChanged();
+
             }
 
             @Override

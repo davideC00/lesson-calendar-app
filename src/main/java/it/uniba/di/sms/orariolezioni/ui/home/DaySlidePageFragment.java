@@ -1,14 +1,14 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,22 +20,15 @@ import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 
 public class DaySlidePageFragment extends Fragment {
 
-    private int mNum;
-    private Date date;
+    private Date mDate = new Date();
 
-    public static DaySlidePageFragment newInstance(int num){
-        DaySlidePageFragment f = new DaySlidePageFragment();
-
-        Bundle args = new Bundle();
-        args.putInt("num", num);
-        f.setArguments(args);
-
-        return f;
-    }
 
     public static DaySlidePageFragment newInstance(Date date){
         DaySlidePageFragment f = new DaySlidePageFragment();
-
+        Log.i("qwerty", date.toString());
+        Bundle args = new Bundle();
+        args.putLong("date", date.getTime());
+        f.setArguments(args);
         return f;
     }
 
@@ -43,7 +36,7 @@ public class DaySlidePageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNum = getArguments() != null ? getArguments().getInt("num") : 1;
+        mDate.setTime(getArguments().getLong("date"));
     }
 
     @Override

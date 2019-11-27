@@ -3,14 +3,12 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,10 +70,9 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;
 
         // Distance beetween prev and actual item in listView
-        //float distanceY = ((parent.getHeight()/24)*(hours + minutes))/1000;
         int distanceY = getPositionFromTime(parent.getHeight(), hours + minutes);
         if(position != 0){
-            //if it's not the first lesson take the previus one and calculate the correct distanceY
+            //if it's not the first lesson take the previous one and calculate the correct distanceY
             View prevView = parent.getChildAt(position-1);
             distanceY = distanceY - prevView.getHeight();
         }
@@ -85,7 +82,7 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         return convertView;
     }
 
-    // @param time has 000's more
+    // @param int time has three 0's more
     private int getPositionFromTime(int totalLength, int time){
         return ((totalLength/24)*time)/1000;
     }
