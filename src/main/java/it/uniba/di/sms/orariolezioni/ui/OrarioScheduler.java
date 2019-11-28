@@ -30,20 +30,7 @@ public class OrarioScheduler extends AppCompatActivity {
         setContentView(R.layout.activity_orario_scheduler);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               // TODO Make the fragment unclickable
-               FragmentManager fragmentManager = getSupportFragmentManager();
-               fragmentManager
-                       .beginTransaction()
-                       .add(R.id.fragment_add_event_container, new AddLessonFragment())
-                       .addToBackStack(null)
-                       .commit();
 
-           }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -67,12 +54,4 @@ public class OrarioScheduler extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() == 0){
-            this.finish();
-        }else {
-            getSupportFragmentManager().popBackStack();
-        }
-    }
 }

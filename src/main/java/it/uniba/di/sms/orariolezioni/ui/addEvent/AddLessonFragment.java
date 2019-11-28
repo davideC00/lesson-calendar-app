@@ -1,10 +1,13 @@
 package it.uniba.di.sms.orariolezioni.ui.addEvent;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,9 +31,10 @@ public class AddLessonFragment extends Fragment {
         root.setFocusable(true);
         root.setClickable(true);
 
+
+
         return root;
 
     }
-
 
 }

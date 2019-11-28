@@ -1,7 +1,11 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +22,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -49,6 +55,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         // Put the correct date for the central page (First page viewed)
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
@@ -59,6 +66,7 @@ public class HomeFragment extends Fragment {
 
         Calendar c = Calendar.getInstance();
         c.setTime(mCurrentDate);
+        // TODO find why after opening the add lesson the fragment go indexoutofbound
 
         // Add the date for the central's left page of central
         c.add(Calendar.DATE, -1);
@@ -125,7 +133,18 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_request);
+            }
+        });
+
         return root;
     }
+
 
 }

@@ -9,13 +9,27 @@
         android:id="@+id/nav_home"
         android:name="it.uniba.di.sms.orariolezioni.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_add_request"
+            app:destination="@id/nav_add_request" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_change_requests"
         android:name="it.uniba.di.sms.orariolezioni.ui.requests.Requests"
         android:label="@string/menu_change_requests"
         tools:layout="@layout/fragment_change_requests" />
+
+    <fragment
+        android:id="@+id/nav_add_request"
+        android:name="it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment"
+        android:label="Add Lesson"
+        tools:layout="@layout/fragment_add_lesson">
+        <argument
+            android:name="currentDate"
+            app:argType="long" />
+    </fragment>
 
 
 </navigation>
