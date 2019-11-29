@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment;
@@ -139,7 +140,12 @@ public class HomeFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_request);
+                if(getActivity() != null){
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("date", mCurrentDate.getTime());
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_nav_home_to_nav_add_request, bundle);
+                }
             }
         });
 
