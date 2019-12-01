@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_add_request"
-            app:destination="@id/nav_add_lesson" />
+            app:destination="@id/nav_add_lesson"
+            app:popUpTo="@+id/nav_home" />
     </fragment>
 
     <fragment

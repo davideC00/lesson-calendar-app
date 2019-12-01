@@ -54,5 +54,6 @@
     <string name="btn_save">Save</string>
     <string name="str_to">To</string>
     <string name="str_from">From</string>
+    <string name="etTimeError">Insert time</string>
 
 </resources>
