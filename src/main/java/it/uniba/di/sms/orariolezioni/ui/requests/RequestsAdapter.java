@@ -10,10 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
+import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestViewHolder> {
@@ -40,9 +43,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
     @Override
     public void onBindViewHolder(@NonNull final RequestViewHolder requestHolder, int position) {
         final Request request = mRequests.get(position);
+        Lesson lesson = db.getLesson(request.lesson);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        requestHolder.etFromTime.setText(dateFormat.format(lesson.fromTime));
+        requestHolder.etToTime.setText(dateFormat.format(lesson.toTime));
 
-        requestHolder.etFromTime.setText(request.fromTime);
-        requestHolder.etToTime.setText(request.toTime);
+        dateFormat =  new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
+        requestHolder.tvDay.setText(dateFormat.format(lesson.fromTime));
         requestHolder.tvFromTeacher.setText(request.fromTeacher);
         requestHolder.tvToTeacher.setText(request.toTeacher);
         requestHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +70,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
     public class RequestViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tvDay;
         EditText etFromTime;
         EditText etToTime;
         TextView tvFromTeacher;
@@ -71,11 +79,12 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
-            etFromTime = (EditText) itemView.findViewById(R.id.etFromTime);
-            etToTime = (EditText) itemView.findViewById(R.id.etToTime);
-            tvFromTeacher = (TextView) itemView.findViewById(R.id.tvFromTeacher);
-            tvToTeacher = (TextView) itemView.findViewById(R.id.tvToTeacher);
-            btnDelete = (ImageButton) itemView.findViewById(R.id.btn_delete);
+            tvDay = itemView.findViewById(R.id.tvDay);
+            etFromTime = itemView.findViewById(R.id.etFromTime);
+            etToTime = itemView.findViewById(R.id.etToTime);
+            tvFromTeacher = itemView.findViewById(R.id.tvFromTeacher);
+            tvToTeacher = itemView.findViewById(R.id.tvToTeacher);
+            btnDelete = itemView.findViewById(R.id.btn_delete);
 
         }
     }

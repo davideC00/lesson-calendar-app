@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import it.uniba.di.sms.orariolezioni.data.LoginDataSource;
+import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.LoginRepository;
 
 /**
@@ -13,12 +13,18 @@ import it.uniba.di.sms.orariolezioni.data.LoginRepository;
  */
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 
+    private  DbHandler db;
+
+    public LoginViewModelFactory(DbHandler db){
+        this.db = db;
+    }
+
     @NonNull
     @Override
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-            return (T) new LoginViewModel(LoginRepository.getInstance(new LoginDataSource()));
+            return (T) new LoginViewModel(LoginRepository.getInstance(db));
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

@@ -1,6 +1,6 @@
 package it.uniba.di.sms.orariolezioni.data;
 
-import it.uniba.di.sms.orariolezioni.data.model.LoggedInUser;
+import it.uniba.di.sms.orariolezioni.data.model.User;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -10,18 +10,18 @@ public class LoginRepository {
 
     private static volatile LoginRepository instance;
 
-    private LoginDataSource dataSource;
+    private DbHandler dataSource;
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
-    private LoggedInUser user = null;
+    private User user = null;
 
     // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
+    private LoginRepository(DbHandler dataSource) {
         this.dataSource = dataSource;
     }
 
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
+    public static LoginRepository getInstance(DbHandler dataSource) {
         if (instance == null) {
             instance = new LoginRepository(dataSource);
         }
@@ -37,15 +37,15 @@ public class LoginRepository {
         dataSource.logout();
     }
 
-    private void setLoggedInUser(LoggedInUser user) {
+    private void setLoggedInUser(User user) {
         this.user = user;
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result<User> login(String username, String password) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
+        Result<User> result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
+            setLoggedInUser(((Result.Success<User>) result).getData());
         }
         return result;
     }

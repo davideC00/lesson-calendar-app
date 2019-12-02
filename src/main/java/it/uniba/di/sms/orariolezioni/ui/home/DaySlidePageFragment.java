@@ -45,22 +45,9 @@ public class DaySlidePageFragment extends Fragment {
                 R.layout.fragment_day_slide_page, container, false);
 
         // TODO retrieve data from viewmodel
-        Lesson lesson = new Lesson("teacher1", "math",
-                (new GregorianCalendar(2019, 10, 27, 15, 30, 0)).getTime(),
-                (new GregorianCalendar(2019, 10, 27, 17, 48, 0)).getTime());
-        Lesson lesson2 = new Lesson( "teacher2", "science",
-                (new GregorianCalendar(2019, 10, 26, 8, 30, 0)).getTime(),
-                (new GregorianCalendar(2019, 10, 26, 9, 55, 0)).getTime());
-        Lesson lesson3 = new Lesson( "teacher3", "science",
-                (new GregorianCalendar(2019, 10, 25, 0, 0, 0)).getTime(),
-                (new GregorianCalendar(2019, 10, 25, 24, 0, 0)).getTime());
-
-
         // Construct the data source
-        ArrayList<Lesson> lessons = new ArrayList<>();
         DbHandler db = new DbHandler(getContext());
-        db.insertLesson(lesson, lesson2, lesson3);
-        lessons = db.getAllLessonFor(mDate);
+        ArrayList<Lesson> lessons = db.getAllLessonFor(mDate);
         // Create the adapter to convert the array to views
         LessonsAdapter adapter = new LessonsAdapter(getContext(), lessons);
         // Attach the adapter to a ListView

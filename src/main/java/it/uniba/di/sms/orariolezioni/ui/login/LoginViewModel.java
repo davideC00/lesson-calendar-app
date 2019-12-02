@@ -7,7 +7,7 @@ import android.util.Patterns;
 
 import it.uniba.di.sms.orariolezioni.data.LoginRepository;
 import it.uniba.di.sms.orariolezioni.data.Result;
-import it.uniba.di.sms.orariolezioni.data.model.LoggedInUser;
+import it.uniba.di.sms.orariolezioni.data.model.User;
 import it.uniba.di.sms.orariolezioni.R;
 
 public class LoginViewModel extends ViewModel {
@@ -30,10 +30,10 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<User> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+            User data = ((Result.Success<User>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getUsername())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));

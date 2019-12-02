@@ -36,17 +36,8 @@ public class Requests extends Fragment {
             }
         });
 
-        //Test cardview
-        // TODO connect to the database
-        Request request1 = new Request("impedovo", "decarolis", "13:30", "14:00");
-        Request request2 = new Request("teacher2", "teacher3", "12:30", "13:00");
-        Request request3 = new Request("impedovo", "decarolis", "11:30", "14:00");
-
         DbHandler db = new DbHandler(getContext());
-        db.insertRequest(request1, request2, request3);
         ArrayList<Request> requests = db.getAllRequests();
-
-        // requests = (ArrayList<Request>) requestsViewModel.getAllRequests();
 
         /* LIST VIEW CODE
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.ui.OrarioScheduler;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
+        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new DbHandler(getBaseContext())))
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = findViewById(R.id.username);

@@ -91,12 +91,46 @@
 
     </LinearLayout>
 
-    <Spinner
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_fromToTime" />
+        app:layout_constraintTop_toBottomOf="@id/ll_fromToTime">
+
+        <TextView
+            android:id="@+id/tvTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strTeacher"
+            android:layout_alignTop="@+id/spinTeacher"
+            android:textSize="@dimen/time_textSize"/>
+
+        <Spinner
+            android:id="@+id/spinTeacher"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/tvTeacher"
+            android:layout_marginStart="@dimen/padding_time"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/tvTeacher"
+            android:layout_alignTop="@+id/spinSubject"
+            android:text="@string/strSubject"
+            android:textSize="@dimen/time_textSize"/>
+
+        <Spinner
+            android:id="@+id/spinSubject"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/spinTeacher"
+            android:layout_alignStart="@+id/spinTeacher"/>
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

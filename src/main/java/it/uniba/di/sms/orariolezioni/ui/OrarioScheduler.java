@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment;
 
 import android.support.design.widget.NavigationView;
@@ -62,6 +63,9 @@ public class OrarioScheduler extends AppCompatActivity {
                 }
             }
         });
+
+        DbHandler dbHandler = new DbHandler(getBaseContext());
+        dbHandler.populateDatabase();
     }
 
 

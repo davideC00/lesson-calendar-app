@@ -55,5 +55,7 @@
     <string name="str_to">To</string>
     <string name="str_from">From</string>
     <string name="etTimeError">Insert time</string>
+    <string name="strSubject">Subject</string>
+    <string name="strTeacher">Teacher</string>
 
 </resources>
