@@ -104,31 +104,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/strTeacher"
-            android:layout_alignTop="@+id/spinTeacher"
-            android:textSize="@dimen/time_textSize"/>
+            android:textSize="@dimen/time_textSize"
+            android:paddingStart="5dp"/>
 
         <Spinner
             android:id="@+id/spinTeacher"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/tvTeacher"
-            android:layout_marginStart="@dimen/padding_time"/>
+            android:layout_below="@id/tvTeacher"
+            android:layout_alignStart="@id/tvTeacher" />
 
         <TextView
+            android:id="@+id/tvSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/tvTeacher"
-            android:layout_alignTop="@+id/spinSubject"
             android:text="@string/strSubject"
-            android:textSize="@dimen/time_textSize"/>
+            android:textSize="@dimen/time_textSize"
+            android:layout_marginTop="10dp"
+            android:paddingStart="5dp"
+            android:layout_alignStart="@+id/tvTeacher"
+            android:layout_below="@id/spinTeacher"/>
 
         <Spinner
             android:id="@+id/spinSubject"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/spinTeacher"
-            android:layout_alignStart="@+id/spinTeacher"/>
+            android:layout_below="@id/tvSubject"/>
 
     </RelativeLayout>
 

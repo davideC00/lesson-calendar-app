@@ -27,9 +27,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -43,14 +46,24 @@ import java.util.Locale;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.DbHandler;
+import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 
-public class AddLessonFragment extends Fragment {
+public class AddLessonFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private Date mDate = new Date();
 
     private EditText etToTime;
     private EditText etFromTime;
+    private Date fromTime;
+    private Date toTime;
     private TextView tvDate;
+    private String teacher;
+    private String subject;
+    private Spinner spinTeacher;
+    private Spinner spinSubject;
+
+    private DbHandler db;
 
 
     public AddLessonFragment() {
@@ -68,12 +81,24 @@ public class AddLessonFragment extends Fragment {
         etToTime = root.findViewById(R.id.etToTime);
         View vClose = root.findViewById(R.id.vClose);
         Button btnSave = root.findViewById(R.id.btnSave);
+        spinTeacher = root.findViewById(R.id.spinTeacher);
+        spinSubject = root.findViewById(R.id.spinSubject);
+
+        if(getActivity()!=null){
+            db = new DbHandler(getContext());
+            ArrayAdapter<String> dataAdapter =
+                    new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, db.getTeachers());
+            spinTeacher.setAdapter(dataAdapter);
+            spinTeacher.setOnItemSelectedListener(this);
+            spinSubject.setOnItemSelectedListener(this);
+        }
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEditTextFilled(etFromTime) && isEditTextFilled(etToTime)){
-                    //saveLesson();
+                if(isEditTextFilled(etFromTime) && isEditTextFilled(etToTime) && teacher!=null){
+                    saveLesson();
                 }
             }
         });
@@ -103,13 +128,27 @@ public class AddLessonFragment extends Fragment {
 
     }
 
-    private boolean isEditTextFilled(EditText et) {
+    private void saveLesson() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(mDate);
+        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(etFromTime.getText().toString().split(":")[0]));
+        c.set(Calendar.MINUTE, Integer.valueOf(etFromTime.getText().toString().split(":")[1]));
+        fromTime = c.getTime();
+        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(etToTime.getText().toString().split(":")[0]));
+        c.set(Calendar.MINUTE, Integer.valueOf(etToTime.getText().toString().split(":")[1]));
+        toTime = c.getTime();
+        Lesson lesson = new Lesson(teacher, subject, fromTime, toTime);
+        db.insertLesson(lesson);
+    }
+
+    private boolean isEditTextFilled(TextView et) {
         if(TextUtils.isEmpty(et.getText().toString())){
             et.setError(getResources().getString(R.string.etTimeError));
             return false;
         }
         return true;
     }
+
 
     // Set Date Picker onClick for a TextView
     private void setDatePicker(final TextView tv) {
@@ -137,12 +176,14 @@ public class AddLessonFragment extends Fragment {
 
     // Set Time Picker onClick for a EditText
     public void setTimePicker(final EditText et){
+        Date time;
         et.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Calendar mCurrentTime = Calendar.getInstance();
-                int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mCurrentTime.get(Calendar.MINUTE);
+                final Calendar c = Calendar.getInstance();
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -151,9 +192,27 @@ public class AddLessonFragment extends Fragment {
                         et.setError(null);
                     }
                 }, hour, minute, true);
+
                 mTimePicker.show();
             }
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(parent.getId() == R.id.spinTeacher){
+            teacher = parent.getSelectedItem().toString();
+            ArrayAdapter<String> dataAdapter =
+                    new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, db.getTeacherSubjects(teacher));
+            spinSubject.setAdapter(dataAdapter);
+            subject = spinSubject.getSelectedItem().toString();
+        }else if(parent.getId() == R.id.spinSubject){
+            subject = parent.getSelectedItem().toString();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

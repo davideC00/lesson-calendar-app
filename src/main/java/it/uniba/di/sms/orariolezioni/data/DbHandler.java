@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import javax.security.auth.Subject;
 
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.data.model.Subject;
 import it.uniba.di.sms.orariolezioni.data.model.User;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
@@ -59,8 +59,45 @@ public class DbHandler extends SQLiteOpenHelper {
         Request request2 = new Request("teacher2", "teacher3", 2);
         Request request3 = new Request("impedovo", "decarolis", 3);
 
+        User user = new User("scheduler", "scheduler");
+        User user1 = new User("impedovo", "teacher");
+        User user2 = new User("teacher2", "teacher");
+        User user3 = new User("decarolis", "teacher");
+
+        Subject sub1 = new Subject("science", user2.username);
+        Subject sub2 = new Subject("math", user1.username);
+        Subject sub3 = new Subject("informatic", user2.username);
+
+
         //insertRequest(request1,request2, request3);
         //insertLesson(lesson, lesson2, lesson3);
+        //insertUser(user, user1, user2, user3);
+        //insertSubject(sub1, sub2, sub3);
+    }
+
+    private void insertSubject(Subject... subjects) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cValues = new ContentValues();
+        for (Subject subject: subjects){
+            cValues.put(SubjectContract.KEY_NAME, subject.name);
+            cValues.put(SubjectContract.KEY_TEACHER, subject.teacher);
+
+            db.insert(SubjectContract.TABLE_NAME, null, cValues);
+        }
+        db.close();
+    }
+
+    private void insertUser(User... users) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cValues = new ContentValues();
+        for (User user : users){
+            cValues.put(UserContract.KEY_USERNAME, user.username);
+            cValues.put(UserContract.KEY_PASS, "pass");
+            cValues.put(UserContract.KEY_TYPE, user.type);
+
+            db.insert(UserContract.TABLE_NAME, null, cValues);
+        }
+        db.close();
     }
 
     @Override
@@ -90,14 +127,26 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<String> getTeacherSubjects(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> subjects = new ArrayList<>();
+
+        String query = "SELECT " + SubjectContract.KEY_NAME + " FROM " + SubjectContract.TABLE_NAME
+                + " WHERE " + SubjectContract.KEY_TEACHER + " = '" + username + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        while(cursor.moveToNext()){
+            subjects.add(cursor.getString(cursor.getColumnIndex(SubjectContract.KEY_NAME)));
+        }
+
+        cursor.close();
+
+        return  subjects;
+    }
+
     public ArrayList<Request> getAllRequests(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
         Cursor cursor = db.rawQuery(RequestContract.GET_ALL_REQUESTS, null);
-        String query = "SELECT * FROM " + RequestContract.TABLE_NAME
-                + " INNER JOIN " + LessonContract.TABLE_NAME
-                + " ON " + RequestContract.KEY_LESSON + " = "
-                + " = " + LessonContract.KEY_ID;
         while(cursor.moveToNext()){
             Request request = new Request(
                     cursor.getInt(cursor.getColumnIndex(RequestContract.KEY_ID)),
@@ -205,19 +254,19 @@ public class DbHandler extends SQLiteOpenHelper {
                 User scheduler =
                         new User(
                                 "Scheduler",
-                                User.Type.SCHEDULER);
+                                "scheduler");
                 return new Result.Success<>(scheduler);
             case "impedovo":
                 User impedovo =
                         new User(
                                 "Donato Impedovo",
-                                User.Type.TEACHER);
+                                "teacher");
                 return new Result.Success<>(impedovo);
             case "roselli":
                 User roselli =
                         new User(
                                 "Teresa Roselli",
-                                User.Type.TEACHER);
+                                "teacher");
                 return new Result.Success<>(roselli);
         }
 
@@ -229,4 +278,21 @@ public class DbHandler extends SQLiteOpenHelper {
         // TODO: revoke authentication
     }
 
+    public ArrayList<String> getTeachers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> teachers = new ArrayList<>();
+        String query = "SELECT * FROM " + UserContract.TABLE_NAME
+                +   " WHERE " + UserContract.KEY_TYPE + " = 'teacher'";
+        Cursor cursor = db.rawQuery(query, null);
+        while(cursor.moveToNext()){
+            User teacher = new User(
+                    cursor.getString(cursor.getColumnIndex(UserContract.KEY_USERNAME)),
+                    cursor.getString(cursor.getColumnIndex(UserContract.KEY_TYPE)));
+            teachers.add(teacher.username);
+        }
+
+        cursor.close();
+
+        return teachers;
+    }
 }
