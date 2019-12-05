@@ -5,8 +5,10 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +50,7 @@ import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.ui.home.PagerViewModel;
 
 public class AddLessonFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -73,6 +76,7 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_add_lesson, container, false);
 
@@ -84,6 +88,16 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         spinTeacher = root.findViewById(R.id.spinTeacher);
         spinSubject = root.findViewById(R.id.spinSubject);
 
+        setTimePicker(etFromTime);
+        setTimePicker(etToTime);
+        setDatePicker(tvDate);
+
+        if(getArguments() != null) {
+            mDate = new Date(getArguments().getLong("currentDate"));
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
+            tvDate.setText(formatter.format(mDate));
+        }
+
         // Handle back button in fragment
         root.setFocusableInTouchMode(true);
         root.requestFocus();
@@ -92,10 +106,8 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("currentDate", mDate.getTime());
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);
+                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
                     return true;
                 }
                 return false;
@@ -127,24 +139,13 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 if(getActivity()!=null){
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("currentDate", mDate.getTime());
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);
+                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
                 }
             }
         });
 
 
-        setTimePicker(etFromTime);
-        setTimePicker(etToTime);
-        setDatePicker(tvDate);
-
-        if(getArguments() != null){
-            mDate = new Date(getArguments().getLong("currentDate", 0));
-            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
-            tvDate.setText(formatter.format(mDate));
-        }
 
         return root;
 
