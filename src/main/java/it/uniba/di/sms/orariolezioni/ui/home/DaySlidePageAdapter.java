@@ -1,8 +1,10 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class DaySlidePageAdapter extends  FragmentStatePagerAdapter
         }
         else if( position >= LOOPS_COUNT/2){
             // it is the right from the central page
-            position = position - LOOPS_COUNT / 2; // There isnt -1 in the formula because the is the central value in mRightDates
+            position = position - LOOPS_COUNT / 2; // There isn't -1 in the formula because the is the central value in mRightDates
             return DaySlidePageFragment.newInstance(mRightDates.get(position));
         }
         return DaySlidePageFragment.newInstance(new Date());
@@ -56,4 +58,4 @@ public class DaySlidePageAdapter extends  FragmentStatePagerAdapter
         mRightDates.add(d);
     }
 
-} 
+}

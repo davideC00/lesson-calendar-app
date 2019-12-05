@@ -84,6 +84,25 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         spinTeacher = root.findViewById(R.id.spinTeacher);
         spinSubject = root.findViewById(R.id.spinSubject);
 
+        // Handle back button in fragment
+        root.setFocusableInTouchMode(true);
+        root.requestFocus();
+        root.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("currentDate", mDate.getTime());
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Set spin Data
         if(getActivity()!=null){
             db = new DbHandler(getContext());
             ArrayAdapter<String> dataAdapter =
@@ -93,7 +112,7 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             spinSubject.setOnItemSelectedListener(this);
         }
 
-
+        // Button for saving the fiels in database
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,12 +122,15 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             }
         });
 
+        // Close the fragment
         vClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(getActivity()!=null){
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("currentDate", mDate.getTime());
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigateUp();
+                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);
                 }
             }
         });
@@ -119,7 +141,7 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         setDatePicker(tvDate);
 
         if(getArguments() != null){
-            mDate = new Date(getArguments().getLong("date", 0));
+            mDate = new Date(getArguments().getLong("currentDate", 0));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
         }

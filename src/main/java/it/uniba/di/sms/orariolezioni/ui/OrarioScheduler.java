@@ -26,6 +26,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
+import java.util.List;
+
 
 public class OrarioScheduler extends AppCompatActivity {
 
@@ -75,6 +77,5 @@ public class OrarioScheduler extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // retrieve data passed by AddLessonFragment
+        if(getArguments()!=null && getArguments().getLong("currentDate") != 0L){
+            mCurrentDate = new Date(getArguments().getLong("currentDate"));
+        }
 
         // Put the correct date for the central page (First page viewed)
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
@@ -142,7 +147,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 if(getActivity() != null){
                     Bundle bundle = new Bundle();
-                    bundle.putLong("date", mCurrentDate.getTime());
+                    bundle.putLong("currentDate", mCurrentDate.getTime());
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.action_nav_home_to_nav_add_request, bundle);
                 }
@@ -151,6 +156,5 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
 
 }

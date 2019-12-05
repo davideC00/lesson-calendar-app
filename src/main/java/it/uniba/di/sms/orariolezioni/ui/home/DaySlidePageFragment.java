@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
@@ -30,10 +29,10 @@ public class DaySlidePageFragment extends Fragment {
         return f;
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Retrieve the data passed by
         mDate.setTime(getArguments().getLong("date"));
     }
 
@@ -43,6 +42,7 @@ public class DaySlidePageFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_day_slide_page, container, false);
+
 
         // TODO retrieve data from viewmodel
         // Construct the data source
