@@ -162,6 +162,8 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         toTime = c.getTime();
         Lesson lesson = new Lesson(teacher, subject, fromTime, toTime);
         db.insertLesson(lesson);
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }
 
     private boolean isEditTextFilled(TextView et) {
@@ -228,7 +230,9 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             ArrayAdapter<String> dataAdapter =
                     new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, db.getTeacherSubjects(teacher));
             spinSubject.setAdapter(dataAdapter);
-            subject = spinSubject.getSelectedItem().toString();
+            if(spinSubject.getSelectedItem() != null){
+                subject = spinSubject.getSelectedItem().toString();
+            }
         }else if(parent.getId() == R.id.spinSubject){
             subject = parent.getSelectedItem().toString();
         }
