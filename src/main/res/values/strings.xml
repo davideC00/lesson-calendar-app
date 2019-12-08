@@ -57,5 +57,6 @@
     <string name="etTimeError">Insert time</string>
     <string name="strSubject">Subject</string>
     <string name="strTeacher">Teacher</string>
+    <string name="str_remove">Remove</string>
 
 </resources>

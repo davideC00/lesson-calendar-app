@@ -14,15 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <include android:id="@+id/calendar" layout="@layout/calendar" />
 
-        <ListView
-            android:id="@+id/lvLessons"
+        <FrameLayout
+            android:id="@+id/fragment_calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="60dp"
-            android:divider="@null" />
+            android:layout_marginStart="60dp"/>
+
 
     </FrameLayout>
 

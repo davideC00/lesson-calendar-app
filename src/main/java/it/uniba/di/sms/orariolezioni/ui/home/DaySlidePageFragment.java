@@ -1,13 +1,20 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,8 +27,15 @@ public class DaySlidePageFragment extends Fragment {
 
     private Date mDate = new Date();
 
+    private DbHandler db;
 
-    public static DaySlidePageFragment newInstance(Date date){
+    private FrameLayout frameLayout;
+
+    private LessonsAdapter adapter;
+
+    private static View selectedView;
+
+    public static DaySlidePageFragment newInstance(Date date) {
         DaySlidePageFragment f = new DaySlidePageFragment();
         Bundle args = new Bundle();
         args.putLong("date", date.getTime());
@@ -43,18 +57,54 @@ public class DaySlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_day_slide_page, container, false);
 
+        frameLayout = rootView.findViewById(R.id.fragment_calendar);
 
-        // TODO retrieve data from viewmodel
         // Construct the data source
-        DbHandler db = new DbHandler(getContext());
+        db = new DbHandler(getContext());
         ArrayList<Lesson> lessons = db.getAllLessonFor(mDate);
         // Create the adapter to convert the array to views
-        LessonsAdapter adapter = new LessonsAdapter(getContext(), lessons);
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) rootView.findViewById(R.id.lvLessons);
-        listView.setAdapter(adapter);
+        adapter = new LessonsAdapter(getContext(), lessons);
+
+
+        frameLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    View view = adapter.getView(i, null, frameLayout);
+                    frameLayout.addView(view);
+                    registerForContextMenu(view);
+                }
+            }
+        });
+
 
         return rootView;
     }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_page_lesson_menu, menu);
+        selectedView = v;
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.remove:
+                db.deleteLesson(selectedView.getId());
+                selectedView.setVisibility(View.INVISIBLE);
+                selectedView = null;
+                return true;
+            default:
+                selectedView = null;
+                return super.onContextItemSelected(item);
+        }
+    }
+
 }
 

@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -69,7 +72,6 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
-
 
         // Put the correct date for the central page (First page viewed)
         formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);

@@ -3,10 +3,13 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +37,8 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lesson, parent, false);
         }
 
+        convertView.setId(lesson.id);
+        convertView.setTag(lesson.id);
         TextView tvLessonTeacher = convertView.findViewById(R.id.tvLessonTeacher);
         TextView tvLessonTime = convertView.findViewById(R.id.tvLessonTime);
 
@@ -48,9 +53,8 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
             durationHours = 24000;
         }
 
-        ViewGroup.LayoutParams params =  convertView.getLayoutParams();
+        ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height = getPositionFromTime(parent.getHeight(), (int)durationHours);
-
 
         if(params.height < tvLessonTeacher.getMinHeight()) {
             // Restore minHeight
@@ -69,13 +73,18 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         int minutes = (calendar.get(Calendar.MINUTE)*1000)/60;
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;
 
-        // Distance beetween prev and actual item in listView
+        // Distance between prev and actual item in frameLayout
         int distanceY = getPositionFromTime(parent.getHeight(), hours + minutes);
+
+        /*
         if(position != 0){
+            // TODO chekc if this is executed when using framelayout
+            Log.i("qwerty", "pressed " + parent.getChildAt(position-1).getHeight());
             //if it's not the first lesson take the previous one and calculate the correct distanceY
-            View prevView = parent.getChildAt(position-1);
+            ViewGroup prevView = (ViewGroup) parent.getChildAt(position-1);
             distanceY = distanceY - prevView.getHeight();
         }
+        */
 
         convertView.setY(distanceY);
 

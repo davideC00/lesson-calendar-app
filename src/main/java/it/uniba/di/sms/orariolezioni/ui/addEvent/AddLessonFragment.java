@@ -146,7 +146,6 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         });
 
 
-
         return root;
 
     }
@@ -162,6 +161,8 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         toTime = c.getTime();
         Lesson lesson = new Lesson(teacher, subject, fromTime, toTime);
         db.insertLesson(lesson);
+
+        // Navigate to Home
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }

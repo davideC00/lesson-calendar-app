@@ -489,7 +489,7 @@
             android:paddingEnd="@dimen/padding_time"
             android:paddingStart="@dimen/padding_time"
             android:text="@string/time_22"
-            />
+            android:textSize="@dimen/time_textSize"/>
 
         <View
             android:id="@+id/divider22"
