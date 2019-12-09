@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ public class DaySlidePageFragment extends Fragment {
 
     private LessonsAdapter adapter;
 
-    private static View selectedView;
+    private View selectedView;
 
     public static DaySlidePageFragment newInstance(Date date) {
         DaySlidePageFragment f = new DaySlidePageFragment();
@@ -81,6 +82,11 @@ public class DaySlidePageFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        super.onOptionsMenuClosed(menu);
+        selectedView = null;
+    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -94,14 +100,16 @@ public class DaySlidePageFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
+        if(selectedView == null){
+            return false;
+        }
         switch (item.getItemId()) {
             case R.id.remove:
                 db.deleteLesson(selectedView.getId());
                 selectedView.setVisibility(View.INVISIBLE);
-                selectedView = null;
                 return true;
             default:
-                selectedView = null;
                 return super.onContextItemSelected(item);
         }
     }
