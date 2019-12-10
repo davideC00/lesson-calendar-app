@@ -50,11 +50,18 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         if(getActivity()!= null){
             homeViewModel =
                     ViewModelProviders.of(getActivity()).get(PagerViewModel.class);
+            if(getArguments() != null && getArguments().getLong("date") != 0L){
+                homeViewModel.setCentralDate(new Date(getArguments().getLong("date")));
+            }
             mCurrentDate = homeViewModel.getCentralDate();
         }
+
+
 
         lastPosition = pagerAdapter.LOOPS_COUNT/2;
         leftLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max left position reached
@@ -64,8 +71,8 @@ public class HomeFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_home);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
         mPager = root.findViewById(R.id.vp_days);
-        // Don't allow to save the state when screen rotation
-        mPager.setSaveEnabled(false); // if set to true the position is stored and let to an index out of bound
+        // Don't allow to save the state when screen rotation or configuration change
+        mPager.setSaveEnabled(false); // if set to true the position is stored and give index out of bound
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

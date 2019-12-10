@@ -58,5 +58,6 @@
     <string name="strSubject">Subject</string>
     <string name="strTeacher">Teacher</string>
     <string name="str_remove">Remove</string>
+    <string name="str_show">Show</string>
 
 </resources>
