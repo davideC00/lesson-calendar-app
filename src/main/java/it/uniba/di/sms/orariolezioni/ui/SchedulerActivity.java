@@ -29,7 +29,7 @@ import android.widget.Button;
 import java.util.List;
 
 
-public class OrarioScheduler extends AppCompatActivity {
+public class SchedulerActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 

@@ -94,7 +94,8 @@ public class DaySlidePageFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
+        // Since there are multiple instance of fragment in ViewPager onContextItem must be
+        // called only on the fragment with selectedView not null
         if(selectedView == null){
             return false;
         }

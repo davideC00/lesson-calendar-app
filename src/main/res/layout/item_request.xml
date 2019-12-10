@@ -132,7 +132,7 @@
                 android:src="@drawable/ic_close" />
 
             <ImageButton
-                android:id="@+id/btn_done"
+                android:id="@+id/btn_accept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_time"

@@ -56,6 +56,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
         requestHolder.tvDay.setText(dateFormat.format(lesson.fromTime));
         requestHolder.tvFromTeacher.setText(request.fromTeacher);
         requestHolder.tvToTeacher.setText(request.toTeacher);
+
         requestHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +75,14 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
             }
         });
 
+        requestHolder.btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.acceptRequest(request);
+                mRequests.remove(requestHolder.getAdapterPosition());
+                notifyItemRemoved(requestHolder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -90,6 +99,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
         TextView tvToTeacher;
         TextView tvShow;
         ImageButton btnDelete;
+        ImageButton btnAccept;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,7 +110,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
             tvToTeacher = itemView.findViewById(R.id.tvToTeacher);
             tvShow = itemView.findViewById(R.id.tvShow);
             btnDelete = itemView.findViewById(R.id.btn_delete);
-
+            btnAccept = itemView.findViewById(R.id.btn_accept);
         }
     }
 }

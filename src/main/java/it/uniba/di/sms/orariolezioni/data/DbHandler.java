@@ -161,6 +161,16 @@ public class DbHandler extends SQLiteOpenHelper {
         return requests;
     }
 
+    public void acceptRequest(Request request){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(LessonContract.KEY_TEACHER, request.toTeacher);
+        // cv.put(LessonContract.KEY_SUBJECT, request.subject);
+        db.update(LessonContract.TABLE_NAME, cv, LessonContract.KEY_ID+" = ?", new String[]{String.valueOf(request.id)});
+        deleteRequest(request);
+        db.close();
+    }
+
     public void deleteRequest(Request request){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(RequestContract.TABLE_NAME, RequestContract.KEY_ID+" = ?",new String[]{String.valueOf(request.id)});

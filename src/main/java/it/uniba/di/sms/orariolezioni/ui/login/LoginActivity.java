@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
-import it.uniba.di.sms.orariolezioni.ui.OrarioScheduler;
+import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -124,8 +124,12 @@ public class LoginActivity extends AppCompatActivity {
         String welcome =  getString(R.string.welcome) + model.getUsername();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, OrarioScheduler.class);
-        startActivity(intent);
+        if(model.getType() == "scheduler"){
+            Intent intent = new Intent(this, SchedulerActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
