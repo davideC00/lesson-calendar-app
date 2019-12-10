@@ -83,12 +83,6 @@ public class DaySlidePageFragment extends Fragment {
     }
 
     @Override
-    public void onOptionsMenuClosed(Menu menu) {
-        super.onOptionsMenuClosed(menu);
-        selectedView = null;
-    }
-
-    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -104,14 +98,15 @@ public class DaySlidePageFragment extends Fragment {
         if(selectedView == null){
             return false;
         }
-        switch (item.getItemId()) {
-            case R.id.remove:
-                db.deleteLesson(selectedView.getId());
-                selectedView.setVisibility(View.INVISIBLE);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+
+        if (item.getItemId() == R.id.remove) {
+            db.deleteLesson(selectedView.getId());
+            selectedView.setVisibility(View.INVISIBLE);
+            selectedView = null;
+            return true;
         }
+        selectedView = null;
+        return super.onContextItemSelected(item);
     }
 
 }
