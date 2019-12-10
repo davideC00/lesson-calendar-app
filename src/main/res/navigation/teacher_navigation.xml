@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/teacher_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="it.uniba.di.sms.orariolezioni.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_add_request"
+            app:destination="@id/nav_add_lesson"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="date"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_change_requests"
+        android:name="it.uniba.di.sms.orariolezioni.ui.requests.Requests"
+        android:label="@string/menu_change_requests"
+        tools:layout="@layout/fragment_change_requests" >
+        <action
+            android:id="@+id/action_nav_change_requests_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_lesson"
+        android:name="it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment"
+        android:label="Add Lesson"
+        tools:layout="@layout/fragment_add_lesson">
+        <argument
+            android:name="currentDate"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_nav_add_lesson_to_nav_home"
+            app:destination="@+id/nav_home"
+            app:popUpTo="@+id/nav_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+</navigation>

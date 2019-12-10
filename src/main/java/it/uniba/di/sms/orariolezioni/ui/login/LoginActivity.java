@@ -22,6 +22,7 @@ import android.widget.Toast;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
+import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -124,11 +125,13 @@ public class LoginActivity extends AppCompatActivity {
         String welcome =  getString(R.string.welcome) + model.getUsername();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        if(model.getType() == "scheduler"){
+        if(model.getType().equals("scheduler")){
             Intent intent = new Intent(this, SchedulerActivity.class);
             startActivity(intent);
+        }else if(model.getType().equals("teacher")) {
+            Intent intent = new Intent(this, TeacherActivity.class);
+            startActivity(intent);
         }
-
 
     }
 

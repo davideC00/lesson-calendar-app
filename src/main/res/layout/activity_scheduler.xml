@@ -10,7 +10,7 @@
 
 
     <include
-        layout="@layout/app_bar_orario_scheduler"
+        layout="@layout/app_bar_scheduler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -21,8 +21,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_orario_scheduler"
-        app:menu="@menu/activity_orario_scheduler_drawer" />
+        app:headerLayout="@layout/nav_header_project"
+        app:menu="@menu/activity_project_drawer" />
 
 
 </android.support.v4.widget.DrawerLayout>

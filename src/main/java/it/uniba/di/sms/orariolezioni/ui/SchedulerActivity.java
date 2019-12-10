@@ -4,10 +4,6 @@ package it.uniba.di.sms.orariolezioni.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -17,16 +13,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
-import it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-
-import java.util.List;
 
 
 public class SchedulerActivity extends AppCompatActivity {
@@ -38,7 +30,7 @@ public class SchedulerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orario_scheduler);
+        setContentView(R.layout.activity_scheduler);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
