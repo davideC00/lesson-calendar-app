@@ -38,7 +38,7 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         }
 
         convertView.setId(lesson.id);
-        convertView.setTag(lesson.id);
+        convertView.setTag("lesson");
         TextView tvLessonTeacher = convertView.findViewById(R.id.tvLessonTeacher);
         TextView tvLessonTime = convertView.findViewById(R.id.tvLessonTime);
 
@@ -95,4 +95,5 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
     private int getPositionFromTime(int totalLength, int time){
         return ((totalLength/24)*time)/1000;
     }
+
 }

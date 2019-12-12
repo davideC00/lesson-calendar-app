@@ -20,7 +20,6 @@ import it.uniba.di.sms.orariolezioni.data.DbHandler;
 public class TeacherActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
     private Toolbar toolbar;
 
     @Override
@@ -65,5 +64,4 @@ public class TeacherActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 }

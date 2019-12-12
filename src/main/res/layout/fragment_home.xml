@@ -16,12 +16,35 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/switchType"
+        android:text="@string/str_unavailability"
+        android:layout_below="@id/text_home" />
+
+    <Switch
+        android:id="@+id/switchType"
+        android:theme="@style/SwitchTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:checked="true"
+        android:layout_below="@id/text_home"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/switchType"
+        android:text="@string/str_lesson"
+        android:layout_below="@id/text_home"/>
+
     <LinearLayout
         android:id="@+id/llDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/text_home"
+        android:layout_below="@id/switchType"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -39,7 +62,7 @@
             android:layout_marginEnd="8dp"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:text="Data di oggi"/>
+            android:text="@string/str_today_date"/>
 
         <TextView
             android:layout_width="40dp"

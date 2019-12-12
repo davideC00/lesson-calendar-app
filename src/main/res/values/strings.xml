@@ -60,5 +60,9 @@
     <string name="str_remove">Remove</string>
     <string name="str_show">Show</string>
     <string name="title_activity_teacher">Teacher Activity</string>
+    <string name="str_ask_change">Ask change</string>
+    <string name="str_unavailability">Unavailability</string>
+    <string name="str_lesson">Lesson</string>
+    <string name="str_today_date">Today\'s date</string>
 
 </resources>

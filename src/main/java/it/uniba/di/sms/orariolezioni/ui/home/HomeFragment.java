@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.support.annotation.Nullable;
 import android.support.annotation.NonNull;
@@ -21,13 +23,17 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
+import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -61,8 +67,6 @@ public class HomeFragment extends Fragment {
             mCurrentDate = homeViewModel.getCentralDate();
         }
 
-
-
         lastPosition = pagerAdapter.LOOPS_COUNT/2;
         leftLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max left position reached
         rightLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max right position reached
@@ -70,7 +74,19 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
+        Switch switchType = root.findViewById(R.id.switchType);
         mPager = root.findViewById(R.id.vp_days);
+
+        switchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    showViewsWithTag("lesson");
+                }else{
+                    hideViewsWithTag("lesson");
+                }
+            }
+        });
         // Don't allow to save the state when screen rotation or configuration change
         mPager.setSaveEnabled(false); // if set to true the position is stored and give index out of bound
         homeViewModel.getText().observe(this, new Observer<String>() {
@@ -155,6 +171,32 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void showViewsWithTag(String tag) {
+        ArrayList<View> views = getViewsWithTag(tag);
+        for(View v : views){
+            v.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideViewsWithTag(String tag){
+        ArrayList<View> views = getViewsWithTag(tag);
+        for(View v : views){
+            v.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private ArrayList<View> getViewsWithTag(String tag){
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        ArrayList<View> views = new ArrayList<>();
+
+        for (Fragment fragment : fragments) {
+            if(fragment instanceof DaySlidePageFragment){
+                views.addAll(((DaySlidePageFragment) fragment).getViewsWithTag(tag));
+            }
+        }
+        return views;
     }
 
 }

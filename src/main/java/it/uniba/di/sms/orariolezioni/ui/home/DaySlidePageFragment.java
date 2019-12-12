@@ -1,21 +1,15 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +17,8 @@ import java.util.Date;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
+import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
 public class DaySlidePageFragment extends Fragment {
 
@@ -87,7 +83,12 @@ public class DaySlidePageFragment extends Fragment {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_page_lesson_menu, menu);
+        if(getActivity() instanceof SchedulerActivity){
+            inflater.inflate(R.menu.fragment_day_slide_scheduler, menu);
+        }else if(getActivity() instanceof TeacherActivity){
+            inflater.inflate(R.menu.fragment_day_slide_teacher, menu);
+        }
+
         selectedView = v;
     }
 
@@ -105,10 +106,21 @@ public class DaySlidePageFragment extends Fragment {
             selectedView.setVisibility(View.INVISIBLE);
             selectedView = null;
             return true;
+        }else if(item.getItemId() == R.id.ask_change){
+            //TODO
         }
         selectedView = null;
         return super.onContextItemSelected(item);
     }
 
+    public ArrayList<View> getViewsWithTag(String tag){
+        ArrayList<View> views = new ArrayList<>();
+        for(int i = 0; i < frameLayout.getChildCount(); i++){
+            if(frameLayout.getChildAt(i).getTag() == tag){
+                views.add(frameLayout.getChildAt(i));
+            }
+        }
+        return views;
+    }
 }
 
