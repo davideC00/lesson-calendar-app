@@ -6,4 +6,7 @@
     <item
         android:id="@+id/ask_change"
         android:title="@string/str_ask_change"/>
+    <item
+        android:id="@+id/remove"
+        android:title="@string/str_remove"/>
 </menu>

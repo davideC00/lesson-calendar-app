@@ -249,6 +249,12 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteUnavailability(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(UnavailabilityContract.TABLE_NAME, UnavailabilityContract.KEY_ID+" = ?",new String[]{String.valueOf(id)});
+        db.close();
+    }
+
     public ArrayList<Unavailability> getAllUnavailabilityFor(Date day) {
         SQLiteDatabase db = this.getReadableDatabase();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
@@ -359,5 +365,22 @@ public class DbHandler extends SQLiteOpenHelper {
         cursor.close();
 
         return teachers;
+    }
+
+    public String getTeacherForLesson(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String teacher = null;
+
+        String query = "SELECT " + LessonContract.KEY_TEACHER + " FROM " + LessonContract.TABLE_NAME
+                + " WHERE " + LessonContract.KEY_ID + " = '" + id + "'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            teacher = cursor.getString(cursor.getColumnIndex(LessonContract.KEY_TEACHER));
+        }
+
+        cursor.close();
+
+        return  teacher;
     }
 }

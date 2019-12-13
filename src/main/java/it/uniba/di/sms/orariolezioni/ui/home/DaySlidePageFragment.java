@@ -3,6 +3,7 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Event;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.data.model.Request;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
 import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
@@ -88,10 +90,13 @@ public class DaySlidePageFragment extends Fragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         if(getActivity() instanceof SchedulerActivity){
             inflater.inflate(R.menu.fragment_day_slide_scheduler, menu);
-        }else if(getActivity() instanceof TeacherActivity){
+        }else if(getActivity() instanceof TeacherActivity && v.getTag()=="lesson"){
             inflater.inflate(R.menu.fragment_day_slide_teacher, menu);
+            menu.removeItem(R.id.remove);
+        }else if(getActivity() instanceof TeacherActivity && v.getTag()=="unavailability"){
+            inflater.inflate(R.menu.fragment_day_slide_teacher, menu);
+            menu.removeItem(R.id.ask_change);
         }
-
         selectedView = v;
     }
 
@@ -104,16 +109,44 @@ public class DaySlidePageFragment extends Fragment {
             return false;
         }
 
-        if (item.getItemId() == R.id.remove && selectedView.getTag()=="lesson") {
-            db.deleteLesson(selectedView.getId());
+        /*
+        if (item.getItemId() == R.id.remove ) {
+            if(selectedView.getTag()=="lesson"){
+                db.deleteLesson(selectedView.getId());
+            }else if(selectedView.getTag()=="unavailability"){
+                db.deleteUnavailability(selectedView.getId());
+            }
             selectedView.setVisibility(View.INVISIBLE);
             selectedView = null;
             return true;
         }else if(item.getItemId() == R.id.ask_change){
-            //TODO
+            db.deleteLesson(selectedView.getId());
+            selectedView = null;
         }
         selectedView = null;
         return super.onContextItemSelected(item);
+        */
+
+
+        switch (item.getItemId()) {
+            case R.id.remove:
+                if(selectedView.getTag()=="lesson") db.deleteLesson(selectedView.getId());
+                else if(selectedView.getTag()=="unavailability") db.deleteUnavailability(selectedView.getId());;
+                selectedView.setVisibility(View.INVISIBLE);
+                selectedView = null;
+                return true;
+            case R.id.ask_change:
+                db.insertRequest(new Request(
+                        db.getTeacherForLesson(selectedView.getId()),  // Teacher of the lesson
+                        ((TeacherActivity) getActivity()).getTeacher(), // Teacher asking for change
+                        selectedView.getId() // id of lesson
+                ));
+                selectedView = null;
+                return true;
+            default:
+                selectedView = null;
+                return super.onContextItemSelected(item);
+        }
     }
 
     public ArrayList<View> getViewsWithTag(String tag){
