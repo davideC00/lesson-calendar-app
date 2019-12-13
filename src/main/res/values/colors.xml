@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="color_lesson">#FF5722</color>
+    <color name="color_pressed_lesson">#C74518</color>
 </resources>

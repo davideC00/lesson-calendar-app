@@ -239,11 +239,11 @@ public class DbHandler extends SQLiteOpenHelper {
         ContentValues cValues = new ContentValues();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ITALY);
         for (Unavailability u : unavailability){
-            cValues.put(LessonContract.KEY_TEACHER, u.teacher);
-            cValues.put(LessonContract.KEY_FROM_TIME, dateFormat.format(u.fromTime));
-            cValues.put(LessonContract.KEY_TO_TIME, dateFormat.format(u.toTime));
+            cValues.put(UnavailabilityContract.KEY_TEACHER, u.teacher);
+            cValues.put(UnavailabilityContract.KEY_FROM_TIME, dateFormat.format(u.fromTime));
+            cValues.put(UnavailabilityContract.KEY_TO_TIME, dateFormat.format(u.toTime));
 
-            db.insert(LessonContract.TABLE_NAME, null, cValues);
+            db.insert(UnavailabilityContract.TABLE_NAME, null, cValues);
         }
 
         db.close();
@@ -254,7 +254,7 @@ public class DbHandler extends SQLiteOpenHelper {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         ArrayList<Unavailability> unavailability = new ArrayList<>();
 
-        // SELECT * FROM Lesson WHERE from_time = 'date%'
+        // SELECT * FROM Unavailability WHERE from_time = 'date%'
         String rawQuery = "SELECT * FROM " + UnavailabilityContract.TABLE_NAME
                 + " WHERE " + UnavailabilityContract.KEY_FROM_TIME
                 + " LIKE '"+ dateFormat.format(day.getTime()) + "%'";
@@ -268,10 +268,10 @@ public class DbHandler extends SQLiteOpenHelper {
                 u = new Unavailability(
                         cursor.getInt(cursor.getColumnIndex(UnavailabilityContract.KEY_ID)),
                         cursor.getString(cursor.getColumnIndex(UnavailabilityContract.KEY_TEACHER)),
-                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(LessonContract.KEY_FROM_TIME))),
-                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(LessonContract.KEY_TO_TIME))));
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(UnavailabilityContract.KEY_FROM_TIME))),
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(UnavailabilityContract.KEY_TO_TIME))));
             } catch (ParseException e) {
-                // If there is a parse error skip the lesson
+                // If there is a parse error skip the unavailability
                 e.printStackTrace();
                 continue;
             }

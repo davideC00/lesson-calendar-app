@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if (actionId == EditorInfo.IME_ACTION_DONE ) {
-                    // The sign button is pressed
+                    // The sign button is pressed_lesson
                     loginViewModel.login(usernameEditText.getText().toString(),
                             passwordEditText.getText().toString());
                 }

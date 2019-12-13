@@ -82,7 +82,9 @@ public class HomeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     showViewsWithTag("lesson");
+                    hideViewsWithTag("unavailability");
                 }else{
+                    showViewsWithTag("unavailability");
                     hideViewsWithTag("lesson");
                 }
             }
