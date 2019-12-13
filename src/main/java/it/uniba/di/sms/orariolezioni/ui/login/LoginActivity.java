@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SchedulerActivity.class);
             startActivity(intent);
         }else if(model.getType().equals("teacher")) {
-            Intent intent = new Intent(this, TeacherActivity.class);
+            Intent intent = new Intent(this, TeacherActivity.class).putExtra("teacher", model.getUsername());
             startActivity(intent);
         }
 

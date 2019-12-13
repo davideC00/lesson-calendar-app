@@ -20,6 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/switchType"
+        android:layout_alignBaseline="@+id/switchType"
+        android:layout_marginEnd="10dp"
         android:text="@string/str_unavailability"
         android:layout_below="@id/text_home" />
 
@@ -36,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/switchType"
+        android:layout_alignBaseline="@+id/switchType"
+        android:layout_marginStart="10dp"
         android:text="@string/str_lesson"
         android:layout_below="@id/text_home"/>
 

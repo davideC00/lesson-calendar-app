@@ -19,34 +19,43 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.R;
+import it.uniba.di.sms.orariolezioni.data.model.Event;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
 
-public class LessonsAdapter extends ArrayAdapter<Lesson> {
+public class LessonsAdapter extends ArrayAdapter<Event> {
 
-    public LessonsAdapter(@NonNull Context context, ArrayList<Lesson> lessons) {
-        super(context, 0, lessons);
+    public LessonsAdapter(@NonNull Context context, ArrayList<Event> events) {
+        super(context, 0, events);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        Lesson lesson = getItem(position);
+        Event event = getItem(position);
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lesson, parent, false);
         }
 
-        convertView.setId(lesson.id);
-        convertView.setTag("lesson");
+
         TextView tvLessonTeacher = convertView.findViewById(R.id.tvLessonTeacher);
         TextView tvLessonTime = convertView.findViewById(R.id.tvLessonTime);
 
-        tvLessonTeacher.setText(lesson.teacher);
+        if(event instanceof Lesson){
+            convertView.setId(event.id);
+            convertView.setTag("lesson");
+            tvLessonTeacher.setText(((Lesson) event).teacher);
+        }else if (event instanceof Unavailability){
+            convertView.setId(event.id);
+            convertView.setTag("unavailability");
+            tvLessonTeacher.setText(((Unavailability) event).teacher);
+        }
 
         // the duration(hours) is with 000 more so later there are less round errors
         // the real formula should have been (60*60*1000)
-        long durationHours = (lesson.toTime.getTime() - lesson.fromTime.getTime())/(60 * 60);
+        long durationHours = (event.toTime.getTime() - event.fromTime.getTime())/(60 * 60);
 
         //Check if the duration of a lesson is greater than 24h
         if(durationHours > 24000){
@@ -62,13 +71,13 @@ public class LessonsAdapter extends ArrayAdapter<Lesson> {
         }else if (params.height > tvLessonTime.getTextSize()*4){
             // There is the space for displaying the time as text
             SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm", Locale.ITALY);
-            String time = localDateFormat.format(lesson.fromTime) + "-"
-                    + localDateFormat.format(lesson.toTime);
+            String time = localDateFormat.format(event.fromTime) + "-"
+                    + localDateFormat.format(event.toTime);
             tvLessonTime.setText(time);
         }
 
         Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(lesson.fromTime);
+        calendar.setTime(event.fromTime);
         // the minutes and hours are added three 0s more so later there are less round errors
         int minutes = (calendar.get(Calendar.MINUTE)*1000)/60;
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;

@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/nav_add_lesson"
-        android:name="it.uniba.di.sms.orariolezioni.ui.addEvent.AddLessonFragment"
+        android:name="it.uniba.di.sms.orariolezioni.ui.addEvent.AddUnavailabilityFragment"
         android:label="Add Lesson"
         tools:layout="@layout/fragment_add_lesson">
         <argument

@@ -52,15 +52,8 @@ import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.ui.home.PagerViewModel;
 
-public class AddLessonFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddLessonFragment extends AddEventFragment implements AdapterView.OnItemSelectedListener {
 
-    private Date mDate = new Date();
-
-    private EditText etToTime;
-    private EditText etFromTime;
-    private Date fromTime;
-    private Date toTime;
-    private TextView tvDate;
     private String teacher;
     private String subject;
     private Spinner spinTeacher;
@@ -124,7 +117,7 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
             spinSubject.setOnItemSelectedListener(this);
         }
 
-        // Button for saving the fiels in database
+        // Button for saving the fields in database
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,62 +160,6 @@ public class AddLessonFragment extends Fragment implements AdapterView.OnItemSel
         navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }
 
-    private boolean isEditTextFilled(TextView et) {
-        if(TextUtils.isEmpty(et.getText().toString())){
-            et.setError(getResources().getString(R.string.etTimeError));
-            return false;
-        }
-        return true;
-    }
-
-
-    // Set Date Picker onClick for a TextView
-    private void setDatePicker(final TextView tv) {
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                calendar.setTime(mDate);
-                int yy = calendar.get(Calendar.YEAR);
-                int mm = calendar.get(Calendar.MONTH);
-                int dd = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePicker;
-                datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mDate = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
-                        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
-                        tv.setText(formatter.format(mDate));
-                    }
-                }, yy, mm, dd);
-                datePicker.show();
-            }
-        });
-    }
-
-    // Set Time Picker onClick for a EditText
-    public void setTimePicker(final EditText et){
-        Date time;
-        et.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int hour = c.get(Calendar.HOUR_OF_DAY);
-                int minute = c.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        et.setText( selectedHour + ":" + selectedMinute);
-                        et.setError(null);
-                    }
-                }, hour, minute, true);
-
-                mTimePicker.show();
-            }
-        });
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

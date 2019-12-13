@@ -16,6 +16,7 @@ import java.util.Date;
 
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
+import it.uniba.di.sms.orariolezioni.data.model.Event;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
 import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
@@ -58,9 +59,11 @@ public class DaySlidePageFragment extends Fragment {
 
         // Construct the data source
         db = new DbHandler(getContext());
-        ArrayList<Lesson> lessons = db.getAllLessonFor(mDate);
+        ArrayList<Event> events = new ArrayList<>();
+        events.addAll(db.getAllLessonFor(mDate));
+        events.addAll(db.getAllUnavailabilityFor(mDate));
         // Create the adapter to convert the array to views
-        adapter = new LessonsAdapter(getContext(), lessons);
+        adapter = new LessonsAdapter(getContext(), events);
 
 
         frameLayout.post(new Runnable() {
@@ -101,7 +104,7 @@ public class DaySlidePageFragment extends Fragment {
             return false;
         }
 
-        if (item.getItemId() == R.id.remove) {
+        if (item.getItemId() == R.id.remove && selectedView.getTag()=="lesson") {
             db.deleteLesson(selectedView.getId());
             selectedView.setVisibility(View.INVISIBLE);
             selectedView = null;

@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Subject;
+import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
 import it.uniba.di.sms.orariolezioni.data.model.User;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
@@ -233,6 +234,54 @@ public class DbHandler extends SQLiteOpenHelper {
         return lessons;
     }
 
+    public void insertUnavailability(Unavailability... unavailability){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cValues = new ContentValues();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ITALY);
+        for (Unavailability u : unavailability){
+            cValues.put(LessonContract.KEY_TEACHER, u.teacher);
+            cValues.put(LessonContract.KEY_FROM_TIME, dateFormat.format(u.fromTime));
+            cValues.put(LessonContract.KEY_TO_TIME, dateFormat.format(u.toTime));
+
+            db.insert(LessonContract.TABLE_NAME, null, cValues);
+        }
+
+        db.close();
+    }
+
+    public ArrayList<Unavailability> getAllUnavailabilityFor(Date day) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        ArrayList<Unavailability> unavailability = new ArrayList<>();
+
+        // SELECT * FROM Lesson WHERE from_time = 'date%'
+        String rawQuery = "SELECT * FROM " + UnavailabilityContract.TABLE_NAME
+                + " WHERE " + UnavailabilityContract.KEY_FROM_TIME
+                + " LIKE '"+ dateFormat.format(day.getTime()) + "%'";
+        Cursor cursor = db.rawQuery(rawQuery, null);
+
+        // Changed the date format for saving properly the date
+        dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
+        while(cursor.moveToNext()){
+            Unavailability u = null;
+            try {
+                u = new Unavailability(
+                        cursor.getInt(cursor.getColumnIndex(UnavailabilityContract.KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(UnavailabilityContract.KEY_TEACHER)),
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(LessonContract.KEY_FROM_TIME))),
+                        dateFormat.parse(cursor.getString(cursor.getColumnIndex(LessonContract.KEY_TO_TIME))));
+            } catch (ParseException e) {
+                // If there is a parse error skip the lesson
+                e.printStackTrace();
+                continue;
+            }
+            unavailability.add(u);
+        }
+        cursor.close();
+
+        return unavailability;
+    }
+
 
     public Lesson getLesson( int id){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -269,19 +318,19 @@ public class DbHandler extends SQLiteOpenHelper {
             case "scheduler":
                 User scheduler =
                         new User(
-                                "Scheduler",
+                                "scheduler",
                                 "scheduler");
                 return new Result.Success<>(scheduler);
             case "impedovo":
                 User impedovo =
                         new User(
-                                "Donato Impedovo",
+                                "impedovo",
                                 "teacher");
                 return new Result.Success<>(impedovo);
             case "roselli":
                 User roselli =
                         new User(
-                                "Teresa Roselli",
+                                "roselli",
                                 "teacher");
                 return new Result.Success<>(roselli);
         }
