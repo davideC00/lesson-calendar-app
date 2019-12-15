@@ -13,11 +13,13 @@ public class PagerViewModel extends ViewModel {
     private Date date;
     private Date rightDate;
     private Date leftDate;
+    private boolean switchState;
 
     public PagerViewModel() {
         mText = new MutableLiveData<>();
         setCentralDate(new Date());
         mText.setValue("This is home fragment");
+        switchState = true;
     }
 
     public LiveData<String> getText() {
@@ -56,5 +58,14 @@ public class PagerViewModel extends ViewModel {
 
     public void setLeftDate(Date leftDate) {
         this.leftDate = leftDate;
+    }
+
+
+    public boolean getSwitchState() {
+        return switchState;
+    }
+
+    public void setSwitchState(boolean switchState) {
+        this.switchState = switchState;
     }
 }

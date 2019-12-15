@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         if(getActivity()!= null){
             homeViewModel =
                     ViewModelProviders.of(getActivity()).get(PagerViewModel.class);
@@ -113,7 +112,6 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
                 fadeIn.setDuration(400);
                 fadeIn.setFillAfter(true);
 
-
                 if(lastPosition > position){
                     // Swipe left
                     // Change the date of the left page
@@ -162,10 +160,12 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
             }
         });
 
+        switchType.setChecked(homeViewModel.getSwitchState());
         switchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 switchVisibility(isChecked);
+                homeViewModel.setSwitchState(isChecked);
             }
         });
 
