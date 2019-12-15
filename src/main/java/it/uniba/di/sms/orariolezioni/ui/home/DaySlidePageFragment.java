@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class DaySlidePageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Retrieve the data passed by
+        // Retrieve the data passed by newInstance
         mDate.setTime(getArguments().getLong("date"));
     }
 
@@ -67,18 +68,26 @@ public class DaySlidePageFragment extends Fragment {
         // Create the adapter to convert the array to views
         adapter = new LessonsAdapter(getContext(), events);
 
-
-        frameLayout.post(new Runnable() {
+        final HomeFragment homeFragment = (HomeFragment) getParentFragment();
+        frameLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
-            public void run() {
+            public boolean onPreDraw() {
+                if (frameLayout.getViewTreeObserver().isAlive())
+                    frameLayout.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                // add the view onPreDraw so  frameLayout has a height and lessons/unavailability can be positioned
                 for (int i = 0; i < adapter.getCount(); i++) {
                     View view = adapter.getView(i, null, frameLayout);
                     frameLayout.addView(view);
                     registerForContextMenu(view);
                 }
+
+                if(homeFragment != null){
+                    homeFragment.onPreDrawFragmentPage();
+                }
+                return false;
             }
         });
-
 
         return rootView;
     }
@@ -108,25 +117,6 @@ public class DaySlidePageFragment extends Fragment {
         if(selectedView == null){
             return false;
         }
-
-        /*
-        if (item.getItemId() == R.id.remove ) {
-            if(selectedView.getTag()=="lesson"){
-                db.deleteLesson(selectedView.getId());
-            }else if(selectedView.getTag()=="unavailability"){
-                db.deleteUnavailability(selectedView.getId());
-            }
-            selectedView.setVisibility(View.INVISIBLE);
-            selectedView = null;
-            return true;
-        }else if(item.getItemId() == R.id.ask_change){
-            db.deleteLesson(selectedView.getId());
-            selectedView = null;
-        }
-        selectedView = null;
-        return super.onContextItemSelected(item);
-        */
-
 
         switch (item.getItemId()) {
             case R.id.remove:
@@ -158,5 +148,6 @@ public class DaySlidePageFragment extends Fragment {
         }
         return views;
     }
+
 }
 

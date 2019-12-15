@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -24,7 +25,6 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -32,10 +32,8 @@ import java.util.Locale;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
-import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
 
     private ViewPager mPager;
 
@@ -53,6 +51,9 @@ public class HomeFragment extends Fragment {
 
     private PagerViewModel homeViewModel;
 
+    private Switch switchType;
+
+    private OnPreDrawFragmentPage mOnPreDrawListener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,21 +75,9 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
-        Switch switchType = root.findViewById(R.id.switchType);
+        switchType = root.findViewById(R.id.switchType);
         mPager = root.findViewById(R.id.vp_days);
 
-        switchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    showViewsWithTag("lesson");
-                    hideViewsWithTag("unavailability");
-                }else{
-                    showViewsWithTag("unavailability");
-                    hideViewsWithTag("lesson");
-                }
-            }
-        });
         // Don't allow to save the state when screen rotation or configuration change
         mPager.setSaveEnabled(false); // if set to true the position is stored and give index out of bound
         homeViewModel.getText().observe(this, new Observer<String>() {
@@ -124,6 +113,7 @@ public class HomeFragment extends Fragment {
                 fadeIn.setDuration(400);
                 fadeIn.setFillAfter(true);
 
+
                 if(lastPosition > position){
                     // Swipe left
                     // Change the date of the left page
@@ -153,9 +143,9 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {
-
+            public void onPageScrollStateChanged(int state) {
             }
+
         });
 
 
@@ -172,10 +162,35 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        switchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switchVisibility(isChecked);
+            }
+        });
+
         return root;
     }
 
+    private void switchVisibility(boolean state){
+        if(state){
+            // lesson
+            showViewsWithTag("lesson");
+            hideViewsWithTag("unavailability");
+        }else{
+            // unavailability
+            showViewsWithTag("unavailability");
+            hideViewsWithTag("lesson");
+        }
+    }
+
+    @Override
+    public void onPreDrawFragmentPage() {
+        switchVisibility(switchType.isChecked());
+    }
+
     private void showViewsWithTag(String tag) {
+
         ArrayList<View> views = getViewsWithTag(tag);
         for(View v : views){
             v.setVisibility(View.VISIBLE);
@@ -202,3 +217,4 @@ public class HomeFragment extends Fragment {
     }
 
 }
+
