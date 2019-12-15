@@ -68,7 +68,7 @@ public class DaySlidePageFragment extends Fragment {
         // Create the adapter to convert the array to views
         adapter = new LessonsAdapter(getContext(), events);
 
-        final HomeFragment homeFragment = (HomeFragment) getParentFragment();
+        final OnPreDrawFragmentPage parent = (OnPreDrawFragmentPage) getParentFragment();
         frameLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -82,8 +82,8 @@ public class DaySlidePageFragment extends Fragment {
                     registerForContextMenu(view);
                 }
 
-                if(homeFragment != null){
-                    homeFragment.onPreDrawFragmentPage();
+                if(parent != null){
+                    parent.onPreDrawFragmentPage();
                 }
                 return false;
             }

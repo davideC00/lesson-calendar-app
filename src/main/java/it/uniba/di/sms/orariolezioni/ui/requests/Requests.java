@@ -42,14 +42,6 @@ public class Requests extends Fragment {
         ArrayList<Request> requests = db.getAllRequests();
         NavController navController  = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-        /* LIST VIEW CODE
-        RequestsAdapter adapter = new RequestsAdapter(getContext(), requests);
-
-        ListView listView = (ListView) root.findViewById(R.id.lvRequests);
-        listView.setAdapter(adapter);
-        */
-
-        // TODO make request adapter retrive data from viewmodel
         // TODO Put setHasFixed true and item animation
         RequestsAdapter adapter = new RequestsAdapter(getContext(), requests, navController);
         RecyclerView recyclerView= (RecyclerView)root.findViewById(R.id.rvRequests);

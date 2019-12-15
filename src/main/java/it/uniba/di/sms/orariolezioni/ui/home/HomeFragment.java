@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
 
     private Switch switchType;
 
-    private OnPreDrawFragmentPage mOnPreDrawListener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
