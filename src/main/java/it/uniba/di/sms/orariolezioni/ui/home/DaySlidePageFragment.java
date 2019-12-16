@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.Date;
 
+import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Event;
@@ -128,7 +129,7 @@ public class DaySlidePageFragment extends Fragment {
             case R.id.ask_change:
                 db.insertRequest(new Request(
                         db.getTeacherForLesson(selectedView.getId()),  // Teacher of the lesson
-                        ((TeacherActivity) getActivity()).getTeacher(), // Teacher asking for change
+                        ((OrarioLezioniApplication) getActivity().getApplication()).getTeacher(), // Teacher asking for change
                         selectedView.getId() // id of lesson
                 ));
                 selectedView = null;

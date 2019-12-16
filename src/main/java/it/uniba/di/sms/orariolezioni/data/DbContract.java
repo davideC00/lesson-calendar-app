@@ -3,7 +3,7 @@ package it.uniba.di.sms.orariolezioni.data;
 import android.provider.BaseColumns;
 
 class DbContract {
-    static final int DB_VERSION = 3;
+    static final int DB_VERSION = 4;
     // TODO change orarioLezioniDb to ScheduleForLesson
     static final String DB_NAME = "orarioLezionidb";
 

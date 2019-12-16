@@ -10,11 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 
@@ -31,6 +33,8 @@ public class TeacherActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        teacher = ((OrarioLezioniApplication) this.getApplication()).getTeacher();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -43,8 +47,10 @@ public class TeacherActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        Bundle bundle = new Bundle();
+        bundle.putString("teacher", teacher);
+        navController.setGraph(navController.getGraph(), bundle);
 
-        teacher = getIntent().getStringExtra("teacher");
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -69,7 +75,4 @@ public class TeacherActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public String getTeacher(){
-        return teacher;
-    }
 }

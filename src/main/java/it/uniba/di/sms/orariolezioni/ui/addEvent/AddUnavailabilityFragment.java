@@ -14,6 +14,7 @@ import java.util.Date;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
@@ -48,9 +49,9 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         }
 
         // Set db
-        if(getActivity()!=null && getActivity()instanceof TeacherActivity){
+        if(getActivity()!=null && getActivity() instanceof TeacherActivity){
             db = new DbHandler(getContext());
-            teacher = ((TeacherActivity) getActivity()).getTeacher();
+            teacher = ((OrarioLezioniApplication) getActivity().getApplication()).getTeacher();
         }
 
         // Handle back button in fragment

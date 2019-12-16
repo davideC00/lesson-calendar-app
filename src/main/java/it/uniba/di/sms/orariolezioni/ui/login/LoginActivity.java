@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
@@ -129,7 +130,8 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SchedulerActivity.class);
             startActivity(intent);
         }else if(model.getType().equals("teacher")) {
-            Intent intent = new Intent(this, TeacherActivity.class).putExtra("teacher", model.getUsername());
+            Intent intent = new Intent(this, TeacherActivity.class);
+            ((OrarioLezioniApplication) this.getApplication()).setTeacher(model.getUsername());
             startActivity(intent);
         }
 

@@ -55,19 +55,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 (new GregorianCalendar(2019, 11, 3, 0, 0, 0)).getTime(),
                 (new GregorianCalendar(2019, 11, 3, 24, 0, 0)).getTime());
         //Test cardview
-        // TODO connect to the database
-        Request request1 = new Request("impedovo", "decarolis", 1);
-        Request request2 = new Request("teacher2", "teacher3", 2);
-        Request request3 = new Request("impedovo", "decarolis", 3);
 
-        User user = new User("scheduler", "scheduler");
-        User user1 = new User("impedovo", "teacher");
-        User user2 = new User("teacher2", "teacher");
-        User user3 = new User("decarolis", "teacher");
-
-        Subject sub1 = new Subject("science", user2.username);
-        Subject sub2 = new Subject("math", user1.username);
-        Subject sub3 = new Subject("informatic", user2.username);
 
 
         //insertRequest(request1,request2, request3);
@@ -75,6 +63,61 @@ public class DbHandler extends SQLiteOpenHelper {
         //insertUser(user, user1, user2, user3);
         //insertSubject(sub1, sub2, sub3);
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if exist
+        db.execSQL(LessonContract.DELETE_TABLE);
+        db.execSQL(RequestContract.DELETE_TABLE);
+        db.execSQL(UserContract.DELETE_TABLE);
+        db.execSQL(SubjectContract.DELETE_TABLE);
+        db.execSQL(UnavailabilityContract.DELETE_TABLE);
+
+        // Create tables again
+        onCreate(db);
+
+
+        User user0 = new User("scheduler", "scheduler");
+        User user1 = new User("impedovo", "teacher");
+        User user2 = new User("teacher", "teacher");
+        User user3 = new User("decarolis", "teacher");
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user0);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        Subject sub1 = new Subject("science", user2.username);
+        Subject sub2 = new Subject("math", user1.username);
+        Subject sub3 = new Subject("informatics", user2.username);
+        Subject sub4 = new Subject("piu", user3.username);
+        ArrayList<Subject> subjects = new ArrayList<>();
+        subjects.add(sub1);
+        subjects.add(sub2);
+        subjects.add(sub3);
+        subjects.add(sub4);
+
+
+
+        ContentValues cValues = new ContentValues();
+
+        for(Subject subject : subjects){
+            cValues.clear();
+            cValues.put(SubjectContract.KEY_NAME, subject.name);
+            cValues.put(SubjectContract.KEY_TEACHER, subject.teacher);
+            db.insert(SubjectContract.TABLE_NAME, null, cValues);
+        }
+
+        for (User user : users){
+            cValues.clear();
+            cValues.put(UserContract.KEY_USERNAME, user.username);
+            cValues.put(UserContract.KEY_PASS, "pass");
+            cValues.put(UserContract.KEY_TYPE, user.type);
+
+            db.insert(UserContract.TABLE_NAME, null, cValues);
+        }
+    }
+
 
     private void insertSubject(Subject... subjects) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -99,18 +142,6 @@ public class DbHandler extends SQLiteOpenHelper {
             db.insert(UserContract.TABLE_NAME, null, cValues);
         }
         db.close();
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if exist
-        db.execSQL(LessonContract.DELETE_TABLE);
-        db.execSQL(RequestContract.DELETE_TABLE);
-        db.execSQL(UserContract.DELETE_TABLE);
-        db.execSQL(SubjectContract.DELETE_TABLE);
-        db.execSQL(UnavailabilityContract.DELETE_TABLE);
-        // Create tables again
-        onCreate(db);
     }
 
     // TODO make argument single
@@ -148,6 +179,26 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
         Cursor cursor = db.rawQuery(RequestContract.GET_ALL_REQUESTS, null);
+        while(cursor.moveToNext()){
+            Request request = new Request(
+                    cursor.getInt(cursor.getColumnIndex(RequestContract.KEY_ID)),
+                    cursor.getString(cursor.getColumnIndex(RequestContract.KEY_FROM_TEACHER)),
+                    cursor.getString(cursor.getColumnIndex(RequestContract.KEY_TO_TEACHER)),
+                    cursor.getInt(cursor.getColumnIndex(RequestContract.KEY_LESSON)));
+            requests.add(request);
+        }
+
+        cursor.close();
+
+        return requests;
+    }
+
+    public ArrayList<Request> getRequestsOf(String teacher) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Request> requests = new ArrayList<>();
+        String rawQuery = "SELECT * FROM " + RequestContract.TABLE_NAME
+                + " WHERE " + RequestContract.KEY_TO_TEACHER + " = " + teacher;
+        Cursor cursor = db.rawQuery(rawQuery, null);
         while(cursor.moveToNext()){
             Request request = new Request(
                     cursor.getInt(cursor.getColumnIndex(RequestContract.KEY_ID)),
@@ -383,4 +434,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
         return  teacher;
     }
+
+
 }
