@@ -37,7 +37,7 @@ public class RequestsScheduler extends Fragment {
             @Override
             public void onChanged(@Nullable ArrayList<Request> requests) {
                 mAllRequests = requests;
-                RequestsAdapter adapter = new RequestsAdapter(getContext(), mAllRequests, navController);
+                RequestsAdapterScheduler adapter = new RequestsAdapterScheduler(getContext(), mAllRequests, navController);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(adapter);

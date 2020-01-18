@@ -19,8 +19,9 @@ public class RequestsTeacherViewModel extends AndroidViewModel {
 
     public RequestsTeacherViewModel(Application application) {
         super(application);
+        mRequestOf = new MutableLiveData<>();
         mDb = new DbHandler(application);
-        mDb.getRequestsOf(((OrarioLezioniApplication) application).getTeacher());
+        mRequestOf.setValue(mDb.getRequestsOf(((OrarioLezioniApplication) application).getTeacher()));
     }
 
     public LiveData<ArrayList<Request>> getRequestsOf(){

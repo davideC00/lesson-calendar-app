@@ -37,7 +37,7 @@ public class RequestsTeacher extends Fragment {
             @Override
             public void onChanged(@Nullable ArrayList<Request> requests) {
                 mRequestsOf = requests;
-                RequestsAdapter adapter = new RequestsAdapter(getContext(), mRequestsOf, navController);
+                RequestAdapterTeacher adapter = new RequestAdapterTeacher(getContext(), mRequestsOf, navController);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(adapter);

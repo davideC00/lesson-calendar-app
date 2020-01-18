@@ -1,5 +1,6 @@
 package it.uniba.di.sms.orariolezioni.ui.requests;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,20 +16,19 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 
-public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.RequestViewHolder> {
+public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTeacher.RequestViewHolder> {
 
     private LayoutInflater mInflater;
     private ArrayList<Request> mRequests;
     private NavController navController;
     private DbHandler db;
 
-    RequestsAdapter(Context context, ArrayList<Request> requests, NavController navController){
+    RequestAdapterTeacher(Context context, ArrayList<Request> requests, NavController navController){
         this.mInflater = LayoutInflater.from(context);
         this.mRequests = requests;
         this.db = new DbHandler(context);
@@ -83,6 +82,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
                 notifyItemRemoved(requestHolder.getAdapterPosition());
             }
         });
+
     }
 
     @Override
@@ -114,3 +114,4 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
         }
     }
 }
+

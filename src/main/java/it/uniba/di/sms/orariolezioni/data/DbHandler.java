@@ -54,7 +54,6 @@ public class DbHandler extends SQLiteOpenHelper {
         Lesson lesson3 = new Lesson( "teacher3", "science",
                 (new GregorianCalendar(2019, 11, 3, 0, 0, 0)).getTime(),
                 (new GregorianCalendar(2019, 11, 3, 24, 0, 0)).getTime());
-        //Test cardview
 
 
 
@@ -197,7 +196,7 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
         String rawQuery = "SELECT * FROM " + RequestContract.TABLE_NAME
-                + " WHERE " + RequestContract.KEY_TO_TEACHER + " = " + teacher;
+                + " WHERE " + RequestContract.KEY_TO_TEACHER + " = '" + teacher + "'";
         Cursor cursor = db.rawQuery(rawQuery, null);
         while(cursor.moveToNext()){
             Request request = new Request(
