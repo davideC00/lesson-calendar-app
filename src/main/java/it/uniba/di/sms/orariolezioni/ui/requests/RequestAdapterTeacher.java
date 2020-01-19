@@ -39,7 +39,7 @@ public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTe
     @NonNull
     @Override
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.item_request, viewGroup, false);
+        View view = mInflater.inflate(R.layout.item_request_teacher, viewGroup, false);
         return new RequestViewHolder(view);
     }
 
@@ -56,7 +56,7 @@ public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTe
         requestHolder.tvFromTeacher.setText(request.fromTeacher);
         requestHolder.tvToTeacher.setText(request.toTeacher);
 
-        requestHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        requestHolder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.deleteRequest(request);
@@ -71,15 +71,6 @@ public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTe
                 Bundle bundle = new Bundle();
                 bundle.putLong("date", lesson.fromTime.getTime());
                 navController.navigate(R.id.action_nav_change_requests_to_nav_home, bundle);
-            }
-        });
-
-        requestHolder.btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.acceptRequest(request);
-                mRequests.remove(requestHolder.getAdapterPosition());
-                notifyItemRemoved(requestHolder.getAdapterPosition());
             }
         });
 
@@ -98,8 +89,7 @@ public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTe
         TextView tvFromTeacher;
         TextView tvToTeacher;
         TextView tvShow;
-        ImageButton btnDelete;
-        ImageButton btnAccept;
+        TextView tvDelete;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,8 +99,7 @@ public class RequestAdapterTeacher extends RecyclerView.Adapter<RequestAdapterTe
             tvFromTeacher = itemView.findViewById(R.id.tvFromTeacher);
             tvToTeacher = itemView.findViewById(R.id.tvToTeacher);
             tvShow = itemView.findViewById(R.id.tvShow);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
-            btnAccept = itemView.findViewById(R.id.btn_accept);
+            tvDelete = itemView.findViewById(R.id.tvDelete);
         }
     }
 }
