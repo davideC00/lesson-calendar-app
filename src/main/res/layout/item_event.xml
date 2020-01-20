@@ -25,4 +25,16 @@
         android:textColor="#FFFFFF"
         android:textSize="@dimen/time_textSize" />
 
+    <TextView
+        android:id="@+id/duration"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/fromTime"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone" />
+
 </RelativeLayout>
