@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:fillViewport="false"
     android:orientation="vertical"
-    android:layout_alignTop="@id/text_home"
     android:layout_marginTop="40dp"
     android:layout_marginStart="@dimen/padding_time">
 

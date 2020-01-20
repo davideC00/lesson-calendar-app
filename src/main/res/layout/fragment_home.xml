@@ -7,32 +7,21 @@
 
 
     <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/switchType"
         android:layout_alignBaseline="@+id/switchType"
         android:layout_marginEnd="10dp"
-        android:text="@string/str_unavailability"
-        android:layout_below="@id/text_home" />
+        android:text="@string/str_unavailability" />
 
     <Switch
         android:id="@+id/switchType"
         android:theme="@style/SwitchTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
-        android:checked="true"
-        android:layout_below="@id/text_home"/>
+        android:checked="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,8 +29,7 @@
         android:layout_toEndOf="@id/switchType"
         android:layout_alignBaseline="@+id/switchType"
         android:layout_marginStart="10dp"
-        android:text="@string/str_lesson"
-        android:layout_below="@id/text_home"/>
+        android:text="@string/str_lesson" />
 
     <LinearLayout
         android:id="@+id/llDate"
@@ -77,9 +65,18 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/llDate"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_days"
-        android:layout_below="@+id/llDate"
+        android:layout_below="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

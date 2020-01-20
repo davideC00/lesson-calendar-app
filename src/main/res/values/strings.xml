@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Orario lezioni</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Log in</string>
     <string name="action_sign_in_short">Log in</string>
@@ -65,5 +65,7 @@
     <string name="str_unavailability">Unavailability</string>
     <string name="str_lesson">Lesson</string>
     <string name="str_today_date">Today\'s date</string>
+    <string name="str_enter">Enter in the application</string>
+    <string name="str_date">Date</string>
 
 </resources>
