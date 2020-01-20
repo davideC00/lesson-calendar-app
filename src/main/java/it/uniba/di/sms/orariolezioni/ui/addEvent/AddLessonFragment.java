@@ -77,7 +77,7 @@ public class AddLessonFragment extends AddEventFragment implements AdapterView.O
         etFromTime = root.findViewById(R.id.etFromTime);
         etToTime = root.findViewById(R.id.etToTime);
         View vClose = root.findViewById(R.id.vClose);
-        Button btnSave = root.findViewById(R.id.btnSave);
+        View vSave = root.findViewById(R.id.vSave);
         spinTeacher = root.findViewById(R.id.spinTeacher);
         spinSubject = root.findViewById(R.id.spinSubject);
 
@@ -118,7 +118,7 @@ public class AddLessonFragment extends AddEventFragment implements AdapterView.O
         }
 
         // Button for saving the fields in database
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        vSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isEditTextFilled(etFromTime) && isEditTextFilled(etToTime) && teacher!=null){

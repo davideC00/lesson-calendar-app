@@ -44,12 +44,12 @@ public class LessonsAdapter extends ArrayAdapter<Event> {
         if(event instanceof Lesson){
             convertView.setId(event.id);
             convertView.setTag("lesson");
-            convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_lesson));
+            convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.ripple_lesson));
             tvLessonTeacher.setText(((Lesson) event).teacher);
         }else if (event instanceof Unavailability){
             convertView.setId(event.id);
             convertView.setTag("unavailability");
-            convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_unavailability));
+            convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.ripple_unavailability));
             tvLessonTeacher.setText(((Unavailability) event).teacher);
         }
 

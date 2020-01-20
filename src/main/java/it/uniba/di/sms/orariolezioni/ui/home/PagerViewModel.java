@@ -9,22 +9,17 @@ import java.util.Date;
 
 public class PagerViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
     private Date date;
     private Date rightDate;
     private Date leftDate;
     private boolean switchState;
 
     public PagerViewModel() {
-        mText = new MutableLiveData<>();
+        // mText = new MutableLiveData<>();
         setCentralDate(new Date());
-        mText.setValue("This is home fragment");
         switchState = true;
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
 
     public Date getCentralDate() {
         return date;

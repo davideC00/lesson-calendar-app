@@ -71,19 +71,12 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
         rightLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max right position reached
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
         final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
         switchType = root.findViewById(R.id.switchType);
         mPager = root.findViewById(R.id.vp_days);
 
         // Don't allow to save the state when screen rotation or configuration change
         mPager.setSaveEnabled(false); // if set to true the position is stored and give index out of bound
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         // Put the correct date for the central page (First page viewed)
         formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALY);
