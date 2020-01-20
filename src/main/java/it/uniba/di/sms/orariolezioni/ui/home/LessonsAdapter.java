@@ -78,7 +78,7 @@ public class LessonsAdapter extends ArrayAdapter<Event> {
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(event.fromTime);
-        // the minutes and hours are added three 0s more so later there are less round errors
+        // the minutes and hours have three 0s more so later there are less round errors
         int minutes = (calendar.get(Calendar.MINUTE)*1000)/60;
         int hours = calendar.get(Calendar.HOUR_OF_DAY)*1000;
 

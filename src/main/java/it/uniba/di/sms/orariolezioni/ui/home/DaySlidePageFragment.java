@@ -3,6 +3,8 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -66,6 +68,8 @@ public class DaySlidePageFragment extends Fragment {
         ArrayList<Event> events = new ArrayList<>();
         events.addAll(db.getAllLessonFor(mDate));
         events.addAll(db.getAllUnavailabilityFor(mDate));
+
+
         // Create the adapter to convert the array to views
         adapter = new LessonsAdapter(getContext(), events);
 
@@ -122,8 +126,8 @@ public class DaySlidePageFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.remove:
                 if(selectedView.getTag()=="lesson") db.deleteLesson(selectedView.getId());
-                else if(selectedView.getTag()=="unavailability") db.deleteUnavailability(selectedView.getId());;
-                selectedView.setVisibility(View.INVISIBLE);
+                else if(selectedView.getTag()=="unavailability") db.deleteUnavailability(selectedView.getId());
+                frameLayout.removeView(selectedView);
                 selectedView = null;
                 return true;
             case R.id.ask_change:
