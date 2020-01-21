@@ -47,19 +47,6 @@ public class SchedulerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        /*
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.nav_add_lesson) {
-                    toolbar.setVisibility(View.GONE);
-                }else{
-                    toolbar.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-         */
-
         DbHandler dbHandler = new DbHandler(getBaseContext());
         dbHandler.populateDatabase();
     }

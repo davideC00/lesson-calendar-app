@@ -14,7 +14,8 @@
             android:id="@+id/action_nav_home_to_nav_add_request"
             app:destination="@id/nav_add_lesson"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@+id/nav_home"
+            app:popUpToInclusive="true" />
         <argument
             android:name="date"
             app:argType="long" />
