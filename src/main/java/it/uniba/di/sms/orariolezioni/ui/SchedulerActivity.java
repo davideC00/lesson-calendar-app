@@ -47,6 +47,7 @@ public class SchedulerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        /*
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
@@ -57,6 +58,7 @@ public class SchedulerActivity extends AppCompatActivity {
                 }
             }
         });
+         */
 
         DbHandler dbHandler = new DbHandler(getBaseContext());
         dbHandler.populateDatabase();

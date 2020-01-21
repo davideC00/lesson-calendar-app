@@ -11,7 +11,6 @@
         android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/rl_add_lesson"
             android:layout_width="match_parent"
             android:layout_height="70dp">
 
@@ -91,12 +90,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/str_from" />
 
-            <EditText
-                android:id="@+id/etFromTime"
+            <TextView
+                android:id="@+id/tvFromTime"
                 style="@style/RightViewAddLesson"
-                android:hint="@string/time_7"
-                android:focusable="false"
-                android:longClickable="false"
+                android:text="@string/time_7"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -113,59 +110,63 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/etToTime"
+            <TextView
+                android:id="@+id/tvToTime"
                 style="@style/RightViewAddLesson"
-                android:hint="@string/time_9"
-                android:focusable="false"
-                android:longClickable="false"
+                android:text="@string/time_9"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_fromToTime">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <android.support.constraint.ConstraintLayout
+            style="@style/ConstraintLayoutCustom">
 
             <TextView
                 android:id="@+id/tvTeacher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/LeftViewAddLesson"
                 android:text="@string/strTeacher"
-                android:textSize="@dimen/time_textSize"
-                android:paddingStart="5dp"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <Spinner
-                android:id="@+id/spinTeacher"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvTeacher"
-                android:layout_alignStart="@id/tvTeacher" />
+            <TextView
+                android:id="@+id/tvTeacherChoose"
+                style="@style/RightViewAddLesson"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            style="@style/ConstraintLayoutCustom">
 
             <TextView
                 android:id="@+id/tvSubject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/LeftViewAddLesson"
                 android:text="@string/strSubject"
-                android:textSize="@dimen/time_textSize"
-                android:layout_marginTop="10dp"
-                android:paddingStart="5dp"
-                android:layout_alignStart="@+id/tvTeacher"
-                android:layout_below="@id/spinTeacher"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <Spinner
-                android:id="@+id/spinSubject"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvSubject"/>
+            <TextView
+                android:id="@+id/tvSubjectChoose"
+                style="@style/RightViewAddLesson"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 
