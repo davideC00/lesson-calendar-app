@@ -73,8 +73,7 @@ public class AddLessonFragment extends AddEventFragment  {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
+                    navToHome();
                     return true;
                 }
                 return false;
@@ -93,6 +92,7 @@ public class AddLessonFragment extends AddEventFragment  {
             public void onClick(View v) {
                 if( tvTeacherChoose.getText() != null){
                     saveLesson();
+                    navToHome();
                 }
             }
         });
@@ -102,8 +102,7 @@ public class AddLessonFragment extends AddEventFragment  {
             @Override
             public void onClick(View v) {
                 if(getActivity()!=null){
-                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
+                    navToHome();
                 }
             }
         });
@@ -154,7 +153,7 @@ public class AddLessonFragment extends AddEventFragment  {
 
                 });
                 adb.setNegativeButton("Cancel", null);
-                adb.setTitle(getResources().getString(R.string.str_choose_teacher));
+                adb.setTitle(getResources().getString(R.string.str_choose_subject));
                 adb.show();
 
             }
@@ -180,10 +179,6 @@ public class AddLessonFragment extends AddEventFragment  {
                 toTime);
 
         db.insertLesson(lesson);
-
-        // Navigate to Home
-        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }
 
 }

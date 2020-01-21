@@ -383,12 +383,12 @@ public class DbHandler extends SQLiteOpenHelper {
                                 "impedovo",
                                 "teacher");
                 return new Result.Success<>(impedovo);
-            case "roselli":
-                User roselli =
+            case "decarolis":
+                User decarolis =
                         new User(
-                                "roselli",
+                                "decarolis",
                                 "teacher");
-                return new Result.Success<>(roselli);
+                return new Result.Success<>(decarolis);
         }
 
         return new Result.Error(new Exception("Login Failed"));

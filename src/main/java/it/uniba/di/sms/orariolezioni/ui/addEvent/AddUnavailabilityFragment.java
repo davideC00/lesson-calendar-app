@@ -1,12 +1,10 @@
 package it.uniba.di.sms.orariolezioni.ui.addEvent;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import java.text.SimpleDateFormat;
@@ -33,14 +31,14 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         View root = inflater.inflate(R.layout.fragment_add_unavailability, container, false);
 
         tvDate = root.findViewById(R.id.tv_date);
-        etFromTime = root.findViewById(R.id.etFromTime);
-        etToTime = root.findViewById(R.id.etToTime);
+        tvFromTime = root.findViewById(R.id.tvFromTime);
+        tvToTime = root.findViewById(R.id.tvToTime);
         View vClose = root.findViewById(R.id.vClose);
-        Button btnSave = root.findViewById(R.id.btnSave);
+        View vSave = root.findViewById(R.id.vSave);
 
-        setTimePicker(etFromTime);
-        setTimePicker(etToTime);
-        setDatePicker(tvDate);
+        setTimePicker((View)tvFromTime.getParent(), tvFromTime);
+        setTimePicker((View)tvToTime.getParent(), tvToTime);
+        setDatePicker((View)tvDate.getParent(), tvDate);
 
         if(getArguments() != null) {
             mDate = new Date(getArguments().getLong("currentDate"));
@@ -62,8 +60,7 @@ public class AddUnavailabilityFragment extends AddEventFragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
+                    navToHome();
                     return true;
                 }
                 return false;
@@ -71,11 +68,12 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         });
 
         // Button for saving the fields in database
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        vSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEditTextFilled(etFromTime) && isEditTextFilled(etToTime) && teacher!=null){
+                if( teacher!=null){
                     saveUnavailability();
+                    navToHome();
                 }
             }
         });
@@ -85,8 +83,7 @@ public class AddUnavailabilityFragment extends AddEventFragment {
             @Override
             public void onClick(View v) {
                 if(getActivity()!=null){
-                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
+                    navToHome();
                 }
             }
         });
@@ -100,15 +97,7 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         setFromToTime();
         Unavailability u = new Unavailability(teacher, fromTime, toTime);
         db.insertUnavailability(u);
-
-        // Navigate to Home
-        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }
-
-
-
-
 }
 
 

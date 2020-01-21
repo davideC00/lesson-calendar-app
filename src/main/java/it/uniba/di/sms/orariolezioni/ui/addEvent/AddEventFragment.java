@@ -3,6 +3,7 @@ package it.uniba.di.sms.orariolezioni.ui.addEvent;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,21 +16,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
-import it.uniba.di.sms.orariolezioni.data.DbHandler;
 
 public abstract class AddEventFragment extends Fragment {
 
-    protected EditText etToTime;
-    protected EditText etFromTime;
+    protected TextView tvToTime;
+    protected TextView tvFromTime;
     protected Date fromTime;
     protected Date toTime;
     protected TextView tvDate;
     protected Date mDate = new Date();
 
-    // Set Date Picker onClick for a TextView
-    protected void setDatePicker(final TextView tv) {
-        tv.setOnClickListener(new View.OnClickListener() {
+    // Set Date Picker onClick for a View
+    protected void setDatePicker(final View v, final TextView tv) {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
@@ -52,9 +54,9 @@ public abstract class AddEventFragment extends Fragment {
     }
 
     // Set Time Picker onClick for a EditText
-    protected void setTimePicker(final EditText et){
+    protected void setTimePicker(final View v, final TextView tv){
         Date time;
-        et.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -65,8 +67,8 @@ public abstract class AddEventFragment extends Fragment {
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        et.setText( selectedHour + ":" + selectedMinute);
-                        et.setError(null);
+                        String zero = selectedHour < 9 ? "0" : "";
+                        tv.setText( zero + selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);
 
@@ -75,22 +77,32 @@ public abstract class AddEventFragment extends Fragment {
         });
     }
 
-    protected boolean isEditTextFilled(TextView et) {
-        if(TextUtils.isEmpty(et.getText().toString())){
-            et.setError(getResources().getString(R.string.etTimeError));
-            return false;
-        }
-        return true;
-    }
 
     protected void setFromToTime(){
         Calendar c = Calendar.getInstance();
         c.setTime(mDate);
-        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(etFromTime.getText().toString().split(":")[0]));
-        c.set(Calendar.MINUTE, Integer.valueOf(etFromTime.getText().toString().split(":")[1]));
+        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tvFromTime.getText().toString().split(":")[0]));
+        c.set(Calendar.MINUTE, Integer.valueOf(tvFromTime.getText().toString().split(":")[1]));
         fromTime = c.getTime();
-        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(etToTime.getText().toString().split(":")[0]));
-        c.set(Calendar.MINUTE, Integer.valueOf(etToTime.getText().toString().split(":")[1]));
+        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tvToTime.getText().toString().split(":")[0]));
+        c.set(Calendar.MINUTE, Integer.valueOf(tvToTime.getText().toString().split(":")[1]));
         toTime = c.getTime();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
+    protected void navToHome(){
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
     }
 }

@@ -51,18 +51,6 @@ public class TeacherActivity extends AppCompatActivity {
         bundle.putString("teacher", teacher);
         navController.setGraph(navController.getGraph(), bundle);
 
-
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.nav_add_lesson) {
-                    toolbar.setVisibility(View.GONE);
-                }else{
-                    toolbar.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         DbHandler dbHandler = new DbHandler(getBaseContext());
         dbHandler.populateDatabase();
     }

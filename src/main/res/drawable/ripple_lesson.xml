@@ -16,7 +16,7 @@
     </item>
 
     <item android:id="@android:id/background">
-        <shape>
+        <shape >
             <padding android:left="5dp"
                 android:top="5dp"
                 android:right="5dp"
