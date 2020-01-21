@@ -1,6 +1,7 @@
 package it.uniba.di.sms.orariolezioni.ui;
 
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 
@@ -19,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 
 public class SchedulerActivity extends AppCompatActivity {
@@ -37,6 +40,10 @@ public class SchedulerActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        TextView navViewUsername = navigationView.getHeaderView(0).findViewById(R.id.tvUsername);
+        navViewUsername.setText(((OrarioLezioniApplication) getApplication()).getTeacher());
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(

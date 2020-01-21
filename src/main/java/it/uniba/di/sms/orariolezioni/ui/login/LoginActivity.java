@@ -124,16 +124,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome =  getString(R.string.welcome) + model.getUsername();
+        Intent intent;
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         if(model.getType().equals("scheduler")){
-            Intent intent = new Intent(this, SchedulerActivity.class);
-            startActivity(intent);
-        }else if(model.getType().equals("teacher")) {
-            Intent intent = new Intent(this, TeacherActivity.class);
-            ((OrarioLezioniApplication) this.getApplication()).setTeacher(model.getUsername());
-            startActivity(intent);
+            intent = new Intent(this, SchedulerActivity.class);
+        }else {
+            intent = new Intent(this, TeacherActivity.class);
         }
+        ((OrarioLezioniApplication) this.getApplication()).setTeacher(model.getUsername());
+        startActivity(intent);
 
     }
 

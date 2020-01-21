@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
@@ -38,6 +39,10 @@ public class TeacherActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        TextView navViewUsername = navigationView.getHeaderView(0).findViewById(R.id.tvUsername);
+        navViewUsername.setText(((OrarioLezioniApplication) getApplication()).getTeacher());
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
