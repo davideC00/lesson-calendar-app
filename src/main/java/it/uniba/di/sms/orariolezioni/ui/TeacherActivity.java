@@ -56,8 +56,6 @@ public class TeacherActivity extends AppCompatActivity {
         bundle.putString("teacher", teacher);
         navController.setGraph(navController.getGraph(), bundle);
 
-        DbHandler dbHandler = new DbHandler(getBaseContext());
-        dbHandler.populateDatabase();
     }
 
 

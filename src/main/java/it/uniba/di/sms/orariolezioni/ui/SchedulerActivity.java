@@ -54,8 +54,6 @@ public class SchedulerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        DbHandler dbHandler = new DbHandler(getBaseContext());
-        dbHandler.populateDatabase();
     }
 
 

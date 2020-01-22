@@ -40,6 +40,8 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(UserContract.CREATE_TABLE);
         db.execSQL(UnavailabilityContract.CREATE_TABLE);
         db.execSQL(SubjectContract.CREATE_TABLE);
+
+        populateDatabase(db);
     }
 
 
@@ -105,7 +107,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
         // Create tables again
         onCreate(db);
-        populateDatabase(db);
     }
 
 
