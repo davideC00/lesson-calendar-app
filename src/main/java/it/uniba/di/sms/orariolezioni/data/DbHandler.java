@@ -43,7 +43,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
 
-    public void populateDatabase() {
+    public void populateDatabase(SQLiteDatabase db) {
 
         Lesson lesson = new Lesson("teacher1", "math",
                 (new GregorianCalendar(2019, 11, 2, 15, 30, 0)).getTime(),
@@ -54,27 +54,6 @@ public class DbHandler extends SQLiteOpenHelper {
         Lesson lesson3 = new Lesson( "teacher3", "science",
                 (new GregorianCalendar(2019, 11, 3, 0, 0, 0)).getTime(),
                 (new GregorianCalendar(2019, 11, 3, 24, 0, 0)).getTime());
-
-
-
-        //insertRequest(request1,request2, request3);
-        //insertLesson(lesson, lesson2, lesson3);
-        //insertUser(user, user1, user2, user3);
-        //insertSubject(sub1, sub2, sub3);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if exist
-        db.execSQL(LessonContract.DELETE_TABLE);
-        db.execSQL(RequestContract.DELETE_TABLE);
-        db.execSQL(UserContract.DELETE_TABLE);
-        db.execSQL(SubjectContract.DELETE_TABLE);
-        db.execSQL(UnavailabilityContract.DELETE_TABLE);
-
-        // Create tables again
-        onCreate(db);
-
 
         User user0 = new User("scheduler", "scheduler");
         User user1 = new User("impedovo", "teacher");
@@ -96,8 +75,6 @@ public class DbHandler extends SQLiteOpenHelper {
         subjects.add(sub3);
         subjects.add(sub4);
 
-
-
         ContentValues cValues = new ContentValues();
 
         for(Subject subject : subjects){
@@ -115,6 +92,20 @@ public class DbHandler extends SQLiteOpenHelper {
 
             db.insert(UserContract.TABLE_NAME, null, cValues);
         }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if exist
+        db.execSQL(LessonContract.DELETE_TABLE);
+        db.execSQL(RequestContract.DELETE_TABLE);
+        db.execSQL(UserContract.DELETE_TABLE);
+        db.execSQL(SubjectContract.DELETE_TABLE);
+        db.execSQL(UnavailabilityContract.DELETE_TABLE);
+
+        // Create tables again
+        onCreate(db);
+        populateDatabase(db);
     }
 
 
