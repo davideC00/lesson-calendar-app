@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Orario Lezioni</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="action_sign_in">Accedi</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="btn_save">Salva</string>
+    <string name="etTimeError">Inserire Oraio</string>
+    <string name="invalid_password">La password deve avere >5 caratteri</string>
+    <string name="invalid_username">Username non valido</string>
+    <string name="login_failed">Credenziali sbagliate</string>
+    <string name="menu_change_requests">Richieste cambi</string>
+    <string name="nav_header_desc">Header navigazione</string>
+    <string name="navigation_drawer_close">Chiudi il navigation drawer</string>
+    <string name="navigation_drawer_open">Apri il navigazion drawer</string>
+    <string name="strSubject">Corso</string>
+    <string name="strTeacher">Insegnante</string>
+    <string name="str_accept">Accetta</string>
+    <string name="str_ask_change">Chiedi cambio</string>
+    <string name="str_choose_subject">Scegli corso</string>
+    <string name="str_choose_teacher">Scegli insegnante</string>
+    <string name="str_date">Data</string>
+    <string name="str_delete">Elimina</string>
+    <string name="str_enter">Entra nell\'applicazione</string>
+    <string name="str_from">Dalle</string>
+    <string name="str_to">alle</string>
+    <string name="str_lesson">Lezione</string>
+    <string name="str_remove">RImuovi</string>
+    <string name="str_show">Mostra</string>
+    <string name="str_today_date">Data di oggi</string>
+    <string name="str_unavailability">Indisponibilità</string>
+    <string name="welcome">Benvenuto</string>
+    <string name="title_activity_teacher">Activity Insegnante</string>
+</resources>

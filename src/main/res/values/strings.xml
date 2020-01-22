@@ -1,55 +1,48 @@
 <resources>
     <string name="app_name">Lesson Schedule</string>
     <!-- Strings related to login -->
-    <string name="prompt_username">Username</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_username" translatable="false">Username</string>
+    <string name="prompt_password" translatable="false">Password</string>
     <string name="action_sign_in">Log in</string>
     <string name="action_sign_in_short">Log in</string>
     <string name="welcome">"Welcome "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_scheduler">Scheduler Activity</string>
+    <string name="title_activity_scheduler" translatable="false">Scheduler Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Username</string>
+    <string name="nav_header_title" translatable="false">Username</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home" translatable="false">Home</string>
     <string name="menu_change_requests">Change requests </string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Calendar time values -->
-    <string name="time_1">01:00</string>
-    <string name="time_2">02:00</string>
-    <string name="time_3">03:00</string>
-    <string name="time_4">04:00</string>
-    <string name="time_5">05:00</string>
-    <string name="time_6">06:00</string>
-    <string name="time_7">07:00</string>
-    <string name="time_8">08:00</string>
-    <string name="time_9">09:00</string>
-    <string name="time_10">10:00</string>
-    <string name="time_11">11:00</string>
-    <string name="time_12">12:00</string>
-    <string name="time_13">13:00</string>
-    <string name="time_14">14:00</string>
-    <string name="time_15">15:00</string>
-    <string name="time_16">16:00</string>
-    <string name="time_17">17:00</string>
-    <string name="time_18">18:00</string>
-    <string name="time_19">19:00</string>
-    <string name="time_20">20:00</string>
-    <string name="time_21">21:00</string>
-    <string name="time_22">22:00</string>
-    <string name="time_23">23:00</string>
+    <string name="time_1" translatable="false">01:00</string>
+    <string name="time_2" translatable="false">02:00</string>
+    <string name="time_3" translatable="false">03:00</string>
+    <string name="time_4" translatable="false">04:00</string>
+    <string name="time_5" translatable="false">05:00</string>
+    <string name="time_6" translatable="false">06:00</string>
+    <string name="time_7" translatable="false">07:00</string>
+    <string name="time_8" translatable="false">08:00</string>
+    <string name="time_9" translatable="false">09:00</string>
+    <string name="time_10" translatable="false">10:00</string>
+    <string name="time_11" translatable="false">11:00</string>
+    <string name="time_12" translatable="false">12:00</string>
+    <string name="time_13" translatable="false">13:00</string>
+    <string name="time_14" translatable="false">14:00</string>
+    <string name="time_15" translatable="false">15:00</string>
+    <string name="time_16" translatable="false">16:00</string>
+    <string name="time_17" translatable="false">17:00</string>
+    <string name="time_18" translatable="false">18:00</string>
+    <string name="time_19" translatable="false">19:00</string>
+    <string name="time_20" translatable="false">20:00</string>
+    <string name="time_21" translatable="false">21:00</string>
+    <string name="time_22" translatable="false">22:00</string>
+    <string name="time_23" translatable="false">23:00</string>
     <string name="btn_save">Save</string>
     <string name="str_to">To</string>
     <string name="str_from">From</string>
