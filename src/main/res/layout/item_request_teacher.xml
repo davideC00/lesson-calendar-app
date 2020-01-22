@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:text="---DAY---"
             android:layout_gravity="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/dark_grey"/>
 
 
         <LinearLayout
@@ -37,7 +38,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/str_from" />
+                android:text="@string/str_from"
+                android:textColor="@color/dark_grey"/>
 
             <TextView
                 android:id="@+id/etFromTime"
@@ -45,16 +47,18 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="2"
-                android:textSize="18dp"
-                android:textColor="@android:color/widget_edittext_dark"/>
+                android:textSize="18sp"
+                android:text="@string/time_7"
+                android:textColor="@color/grey" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_gravity="right"
-                android:text="@string/str_to" />
+                android:layout_gravity="end"
+                android:text="@string/str_to"
+                android:textColor="@color/dark_grey"/>
 
             <TextView
                 android:id="@+id/etToTime"
@@ -63,9 +67,9 @@
                 android:layout_gravity="end"
                 android:layout_weight="2"
                 android:textSize="18dp"
-                android:textColor="@android:color/widget_edittext_dark"
                 android:gravity="center"
-                android:text="13:40" />
+                android:text="@string/time_9"
+                android:textColor="@color/grey"/>
         </LinearLayout>
 
 
@@ -82,25 +86,31 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:text="teacher1"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/dark_grey"/>
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_arrow_forward_24dp"/>
+                android:src="@drawable/arrow_right"/>
 
             <TextView
                 android:id="@+id/tvToTeacher"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="teacher2"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/dark_grey"/>
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -110,22 +120,30 @@
                 android:id="@+id/tvShow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding_time"
+                android:padding="5dp"
+                android:layout_marginStart="10dp"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/str_show"/>
+                android:text="@string/str_show"
+                android:textSize="17sp"
+                android:textColor="@color/grey"
+                android:background="@drawable/selector_add_lesson"/>
 
 
             <TextView
                 android:id="@+id/tvDelete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding_time"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/str_delete"/>
+                android:text="@string/str_delete"
+                android:textSize="17sp"
+                android:textColor="@color/grey"
+                android:background="@drawable/selector_add_lesson"/>
 
         </android.support.constraint.ConstraintLayout>
 
