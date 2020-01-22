@@ -28,7 +28,9 @@
         tools:layout="@layout/fragment_change_requests" >
         <action
             android:id="@+id/action_nav_change_requests_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@+id/nav_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
