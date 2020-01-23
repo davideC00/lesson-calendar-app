@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
                     ViewModelProviders.of(getActivity()).get(PagerViewModel.class);
             if(getArguments() != null && getArguments().getLong("date") != 0L){
                 homeViewModel.setCentralDate(new Date(getArguments().getLong("date")));
+                getArguments().remove("date"); // remove the argument because when rotating the activity reads this value
             }
             mCurrentDate = homeViewModel.getCentralDate();
         }

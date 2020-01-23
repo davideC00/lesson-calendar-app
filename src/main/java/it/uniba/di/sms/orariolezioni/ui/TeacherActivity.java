@@ -27,7 +27,7 @@ import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.LoginRepository;
 import it.uniba.di.sms.orariolezioni.ui.login.LoginActivity;
 
-public class TeacherActivity extends AppCompatActivity {
+public class TeacherActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Toolbar toolbar;
@@ -56,6 +56,8 @@ public class TeacherActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        MenuItem logout = navigationView.getMenu().findItem(R.id.nav_logout);
+        logout.setOnMenuItemClickListener(this);
     }
 
 
@@ -67,27 +69,22 @@ public class TeacherActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_toolbar, menu);
-        return true;
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId() == R.id.action_logout){
+    public boolean onMenuItemClick(MenuItem item) {
+        if(item.getItemId() == R.id.nav_logout){
             LoginRepository loginRepository = LoginRepository.getInstance(new DbHandler(this), getPreferences(Context.MODE_PRIVATE));
             loginRepository.logout();
 
+            // Exit from activity after logout
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
+    
 }

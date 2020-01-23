@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +31,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 
-public class SchedulerActivity extends AppCompatActivity {
+public class SchedulerActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener  {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -60,6 +61,9 @@ public class SchedulerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        MenuItem logout = navigationView.getMenu().findItem(R.id.nav_logout);
+        logout.setOnMenuItemClickListener(this);
+
     }
 
 
@@ -71,15 +75,8 @@ public class SchedulerActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId() == R.id.action_logout){
+    public boolean onMenuItemClick(MenuItem item) {
+        if(item.getItemId() == R.id.nav_logout){
             LoginRepository loginRepository = LoginRepository.getInstance(new DbHandler(this), getPreferences(Context.MODE_PRIVATE));
             loginRepository.logout();
 
@@ -88,6 +85,6 @@ public class SchedulerActivity extends AppCompatActivity {
             finish();
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 }

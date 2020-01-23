@@ -68,8 +68,9 @@ public abstract class AddEventFragment extends Fragment {
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String zero = selectedHour < 9 ? "0" : "";
-                        tv.setText( zero + selectedHour + ":" + selectedMinute);
+                        String zeroH = selectedHour <= 9 ? "0" : ""; // Make the string looks 09:00
+                        String zeroM = selectedMinute <= 9 ? "0" : ""; // Make the string looks 09:00
+                        tv.setText( zeroH + selectedHour + ":" + zeroM + selectedMinute);
                     }
                 }, hour, minute, true);
 

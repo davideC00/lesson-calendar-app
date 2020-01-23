@@ -13,6 +13,14 @@
             android:id="@+id/nav_change_requests"
             android:icon="@drawable/ic_menu_change_requests"
             android:title="@string/menu_change_requests" />
+
+    </group>
+
+    <group android:id="@+id/nav_footer"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/srt_logout" />
     </group>
 
 

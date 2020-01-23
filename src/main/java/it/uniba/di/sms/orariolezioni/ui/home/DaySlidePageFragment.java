@@ -88,6 +88,7 @@ public class DaySlidePageFragment extends Fragment {
                 }
 
                 if(parent != null){
+                    // Set visible the correct views
                     parent.onPreDrawFragmentPage();
                 }
                 return false;
