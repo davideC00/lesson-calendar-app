@@ -18,8 +18,8 @@
         android:id="@+id/switchType"
         android:theme="@style/SwitchTheme"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:checked="true" />
 
@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/switchType"
         android:layout_centerHorizontal="true">
 

@@ -210,7 +210,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(LessonContract.KEY_TEACHER, request.toTeacher);
         // cv.put(LessonContract.KEY_SUBJECT, request.subject);
-        db.update(LessonContract.TABLE_NAME, cv, LessonContract.KEY_ID+" = ?", new String[]{String.valueOf(request.id)});
+        db.update(LessonContract.TABLE_NAME, cv, LessonContract.KEY_ID+" = ?", new String[]{String.valueOf(request.lesson)});
         deleteRequest(request);
         db.close();
     }
