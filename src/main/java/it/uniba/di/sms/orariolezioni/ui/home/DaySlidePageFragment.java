@@ -63,7 +63,14 @@ public class DaySlidePageFragment extends Fragment {
         db = new DbHandler(getContext());
         ArrayList<Event> events = new ArrayList<>();
         events.addAll(db.getAllLessonFor(mDate));
-        events.addAll(db.getAllUnavailabilityFor(mDate));
+
+        if (getActivity() instanceof TeacherActivity) {
+            // Get only the Teacher unavailability
+            events.addAll(db.getAllUnavailabilityFor(mDate, ((OrarioLezioniApplication) getActivity().getApplication()).getTeacher()));
+        }else{
+            // Scheduler has access to all unavailability
+            events.addAll(db.getAllUnavailabilityFor(mDate));
+        }
 
 
         // Create the adapter to convert the array to views
@@ -99,7 +106,7 @@ public class DaySlidePageFragment extends Fragment {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        if(getActivity() instanceof SchedulerActivity){
+        if(getActivity() instanceof SchedulerActivity && v.getTag() == "lesson"){
             inflater.inflate(R.menu.fragment_day_slide_scheduler, menu);
         }else if(getActivity() instanceof TeacherActivity && v.getTag()=="lesson"){
             inflater.inflate(R.menu.fragment_day_slide_teacher, menu);

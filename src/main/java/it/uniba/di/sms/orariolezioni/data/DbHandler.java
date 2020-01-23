@@ -21,6 +21,7 @@ import it.uniba.di.sms.orariolezioni.data.model.Subject;
 import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
 import it.uniba.di.sms.orariolezioni.data.model.User;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
+import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
 import static it.uniba.di.sms.orariolezioni.data.DbContract.*;
 
@@ -300,7 +301,6 @@ public class DbHandler extends SQLiteOpenHelper {
     public ArrayList<Unavailability> getAllUnavailabilityFor(Date day) {
         SQLiteDatabase db = this.getReadableDatabase();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-        ArrayList<Unavailability> unavailability = new ArrayList<>();
 
         // SELECT * FROM Unavailability WHERE from_time = 'date%'
         String rawQuery = "SELECT * FROM " + UnavailabilityContract.TABLE_NAME
@@ -308,8 +308,29 @@ public class DbHandler extends SQLiteOpenHelper {
                 + " LIKE '"+ dateFormat.format(day.getTime()) + "%'";
         Cursor cursor = db.rawQuery(rawQuery, null);
 
+        return extractUnavailabilityFrom(cursor);
+    }
+
+    public ArrayList<Unavailability> getAllUnavailabilityFor(Date day, String teacher){
+        SQLiteDatabase db = this.getReadableDatabase();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+
+        // SELECT * FROM Unavailability WHERE from_time = 'date%'
+        String rawQuery = "SELECT * FROM " + UnavailabilityContract.TABLE_NAME
+                + " WHERE " + UnavailabilityContract.KEY_FROM_TIME
+                + " LIKE '"+ dateFormat.format(day.getTime()) + "%'"
+                + " AND " + UnavailabilityContract.KEY_TEACHER + " = '"  + teacher + "'";
+        Cursor cursor = db.rawQuery(rawQuery, null);
+
+        return extractUnavailabilityFrom(cursor);
+    }
+
+    private ArrayList<Unavailability> extractUnavailabilityFrom(Cursor cursor){
+
+        ArrayList<Unavailability> unavailability = new ArrayList<>();
+
         // Changed the date format for saving properly the date
-        dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
         while(cursor.moveToNext()){
             Unavailability u = null;
             try {

@@ -24,7 +24,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
 
-public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
+public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage, ViewPager.OnPageChangeListener {
 
     private ViewPager mPager;
 
@@ -43,6 +43,7 @@ public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
     private PagerViewModel homeViewModel;
 
     private Switch switchType;
+    private TextView tvDate;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
         rightLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max right position reached
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView tvDate = root.findViewById(R.id.tvCurrentDate);
+        tvDate = root.findViewById(R.id.tvCurrentDate);
         switchType = root.findViewById(R.id.switchType);
         mPager = root.findViewById(R.id.vp_days);
 
@@ -83,52 +84,7 @@ public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
         // Set central page
         mPager.setCurrentItem(pagerAdapter.getCount()/2, false);
 
-        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float v, int i1) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                // Animation
-                AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f );
-                fadeIn.setDuration(400);
-                fadeIn.setFillAfter(true);
-
-                if(lastPosition > position){
-                    // Swipe left
-                    // Change the date of the left page
-                    tvDate.startAnimation(fadeIn);
-                    tvDate.setText(formatter.format(homeViewModel.getLeftDate().getTime())); // leftDate returns the first left pag from the centre
-                    homeViewModel.setCentralDate(homeViewModel.getLeftDate()); // move central date
-                }else if(lastPosition < position ){
-                    // Swipe right
-                    // Change the date of the right page
-                    tvDate.startAnimation(fadeIn);
-                    tvDate.setText(formatter.format(homeViewModel.getRightDate().getTime()));
-                    homeViewModel.setCentralDate(homeViewModel.getRightDate()); // move central date
-                }
-                lastPosition = position;
-                mCurrentDate = homeViewModel.getCentralDate();
-
-                if(leftLastPosition > position ){
-                    // Add the date to te adapter's list
-                    pagerAdapter.addLeftDate(homeViewModel.getLeftDate());
-                    leftLastPosition = position; // this avoids to activate addRightDate every time there is a swipe to left
-                }else if(rightLastPosition < position ){
-                    // Add the date to te adapter's list
-                    pagerAdapter.addRightDate(homeViewModel.getRightDate());
-                    rightLastPosition = position; // this avoids to activate addRightDate every time there is a swipe to right
-                }
-                pagerAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-
-        });
+        mPager.addOnPageChangeListener(this);
 
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
@@ -200,5 +156,48 @@ public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
         return views;
     }
 
+    @Override
+    public void onPageScrolled(int position, float v, int i1) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+        // Animation
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f );
+        fadeIn.setDuration(400);
+        fadeIn.setFillAfter(true);
+
+        if(lastPosition > position){
+            // Swipe left
+            // Change the date of the left page
+            tvDate.startAnimation(fadeIn);
+            tvDate.setText(formatter.format(homeViewModel.getLeftDate().getTime())); // leftDate returns the first left pag from the centre
+            homeViewModel.setCentralDate(homeViewModel.getLeftDate()); // move central date
+        }else if(lastPosition < position ){
+            // Swipe right
+            // Change the date of the right page
+            tvDate.startAnimation(fadeIn);
+            tvDate.setText(formatter.format(homeViewModel.getRightDate().getTime()));
+            homeViewModel.setCentralDate(homeViewModel.getRightDate()); // move central date
+        }
+        lastPosition = position;
+        mCurrentDate = homeViewModel.getCentralDate();
+
+        if(leftLastPosition > position ){
+            // Add the date to te adapter's list
+            pagerAdapter.addLeftDate(homeViewModel.getLeftDate());
+            leftLastPosition = position; // this avoids to activate addRightDate every time there is a swipe to left
+        }else if(rightLastPosition < position ){
+            // Add the date to te adapter's list
+            pagerAdapter.addRightDate(homeViewModel.getRightDate());
+            rightLastPosition = position; // this avoids to activate addRightDate every time there is a swipe to right
+        }
+        pagerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
 }
 
