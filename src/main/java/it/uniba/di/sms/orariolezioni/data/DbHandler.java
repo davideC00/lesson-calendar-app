@@ -136,7 +136,6 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // TODO make argument single
     public void insertRequest(Request... requests){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
@@ -382,7 +381,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public Result<User> login(String username, String password) {
 
-        // TODO: handle loggedInUser authentication
         switch(username){
             case "scheduler":
                 User scheduler =
@@ -407,10 +405,6 @@ public class DbHandler extends SQLiteOpenHelper {
         return new Result.Error(new Exception("Login Failed"));
     }
 
-
-    public void logout() {
-        // TODO: revoke authentication
-    }
 
     public ArrayList<String> getTeachers() {
         SQLiteDatabase db = this.getReadableDatabase();
