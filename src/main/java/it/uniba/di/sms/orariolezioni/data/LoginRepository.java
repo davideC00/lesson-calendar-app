@@ -2,9 +2,7 @@ package it.uniba.di.sms.orariolezioni.data;
 
 import android.content.SharedPreferences;
 
-import java.util.List;
 
-import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.model.User;
 
 /**
@@ -48,8 +46,6 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        dataSource.logout();
-
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove("username");
         editor.remove("password");
