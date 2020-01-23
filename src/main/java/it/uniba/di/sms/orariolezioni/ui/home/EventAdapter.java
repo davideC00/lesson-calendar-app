@@ -21,9 +21,9 @@ import it.uniba.di.sms.orariolezioni.data.model.Event;
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
 
-public class LessonsAdapter extends ArrayAdapter<Event> {
+public class EventAdapter extends ArrayAdapter<Event> {
 
-    public LessonsAdapter(@NonNull Context context, ArrayList<Event> events) {
+    public EventAdapter(@NonNull Context context, ArrayList<Event> events) {
         super(context, 0, events);
     }
 

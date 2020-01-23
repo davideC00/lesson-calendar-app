@@ -1,26 +1,17 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.support.annotation.Nullable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +24,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.R;
 
-public class HomeFragment extends Fragment implements OnPreDrawFragmentPage {
+public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage {
 
     private ViewPager mPager;
 

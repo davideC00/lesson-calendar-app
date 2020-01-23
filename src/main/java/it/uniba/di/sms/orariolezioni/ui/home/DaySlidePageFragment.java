@@ -3,9 +3,6 @@ package it.uniba.di.sms.orariolezioni.ui.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -22,7 +19,6 @@ import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
 import it.uniba.di.sms.orariolezioni.data.model.Event;
-import it.uniba.di.sms.orariolezioni.data.model.Lesson;
 import it.uniba.di.sms.orariolezioni.data.model.Request;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
 import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
@@ -35,7 +31,7 @@ public class DaySlidePageFragment extends Fragment {
 
     private FrameLayout frameLayout;
 
-    private LessonsAdapter adapter;
+    private EventAdapter adapter;
 
     private View selectedView;
 
@@ -71,9 +67,9 @@ public class DaySlidePageFragment extends Fragment {
 
 
         // Create the adapter to convert the array to views
-        adapter = new LessonsAdapter(getContext(), events);
+        adapter = new EventAdapter(getContext(), events);
 
-        final OnPreDrawFragmentPage parent = (OnPreDrawFragmentPage) getParentFragment();
+        final OnPreDrawDaySlidePage parent = (OnPreDrawDaySlidePage) getParentFragment();
         frameLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {

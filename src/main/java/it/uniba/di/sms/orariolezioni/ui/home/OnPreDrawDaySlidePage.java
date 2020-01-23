@@ -1,5 +1,5 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
-public interface OnPreDrawFragmentPage{
+public interface OnPreDrawDaySlidePage {
     void onPreDrawFragmentPage();
 }
