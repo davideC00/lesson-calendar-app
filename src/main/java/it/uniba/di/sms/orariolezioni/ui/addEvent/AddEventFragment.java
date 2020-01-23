@@ -2,6 +2,7 @@ package it.uniba.di.sms.orariolezioni.ui.addEvent;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -102,7 +103,9 @@ public abstract class AddEventFragment extends Fragment {
     }
 
     protected void navToHome(){
+        Bundle bundle = new Bundle();
+        bundle.putLong("date", mDate.getTime());
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.action_nav_add_lesson_to_nav_home);
+        navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);
     }
 }

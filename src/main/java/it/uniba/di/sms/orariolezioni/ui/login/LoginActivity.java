@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        if(loginViewModel.isLoggenIn()){
+        if(loginViewModel.isLoggedIn()){
             User user = loginViewModel.getCachedUser();
             loginViewModel.login(user.username, "password");
         }
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome =  getString(R.string.welcome) + model.getUsername();
         Intent intent;
-        // TODO : initiate successful logged in experience
+
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         if(model.getType().equals("scheduler")){
             intent = new Intent(this, SchedulerActivity.class);

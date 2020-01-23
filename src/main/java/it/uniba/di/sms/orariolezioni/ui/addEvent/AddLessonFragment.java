@@ -4,6 +4,7 @@ package it.uniba.di.sms.orariolezioni.ui.addEvent;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -59,10 +60,28 @@ public class AddLessonFragment extends AddEventFragment  {
         setTimePicker((View)tvToTime.getParent(), tvToTime);
         setDatePicker((View) tvDate.getParent(), tvDate);
 
-        if(getArguments() != null) {
+        db = new DbHandler(getContext());
+        teachers = db.getTeachers();
+
+
+        if(savedInstanceState != null){
+            mDate = new Date(savedInstanceState.getLong("currentDate"));
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
+            tvDate.setText(formatter.format(mDate));
+            tvFromTime.setText(savedInstanceState.getString("fromTime"));
+            tvToTime.setText(savedInstanceState.getString("toTime"));
+            tvTeacherChoose.setText(savedInstanceState.getString("teacherChoose"));
+            tvSubjectChoose.setText(savedInstanceState.getString("subjectChoose"));
+            subjects = db.getTeacherSubjects(tvTeacherChoose.getText().toString()); //get the subject for the teacher
+        } else if(getArguments() != null) { // First creation
+
             mDate = new Date(getArguments().getLong("currentDate"));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
+
+            subjects = db.getTeacherSubjects(teachers.get(0)); //get the subject for the first teacher
+            tvTeacherChoose.setText(teachers.get(0));
+            tvSubjectChoose.setText(subjects.get(0));
         }
 
         // Handle back button in fragment
@@ -79,12 +98,6 @@ public class AddLessonFragment extends AddEventFragment  {
                 return false;
             }
         });
-
-        db = new DbHandler(getContext());
-        teachers = db.getTeachers();
-        subjects = db.getTeacherSubjects(teachers.get(0));
-        tvTeacherChoose.setText(teachers.get(0));
-        tvSubjectChoose.setText(subjects.get(0));
 
         // Button for saving the fields in database
         vSave.setOnClickListener(new View.OnClickListener() {
@@ -181,4 +194,12 @@ public class AddLessonFragment extends AddEventFragment  {
         db.insertLesson(lesson);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong("currentDate", mDate.getTime());
+        outState.putString("fromTime", tvFromTime.getText().toString());
+        outState.putString("toTime", tvToTime.getText().toString());
+        outState.putString("teacherChoose", tvTeacherChoose.getText().toString());
+        outState.putString("subjectChoose", tvSubjectChoose.getText().toString());
+    }
 }

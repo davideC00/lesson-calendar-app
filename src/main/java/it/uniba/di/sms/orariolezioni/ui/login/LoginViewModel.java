@@ -71,7 +71,7 @@ public class LoginViewModel extends ViewModel {
         return password != null && password.trim().length() > 5;
     }
 
-    public boolean isLoggenIn(){
+    public boolean isLoggedIn(){
         return loginRepository.isLoggedIn();
     }
 

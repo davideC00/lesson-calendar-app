@@ -1,6 +1,7 @@
 package it.uniba.di.sms.orariolezioni.ui.addEvent;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,13 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         setTimePicker((View)tvToTime.getParent(), tvToTime);
         setDatePicker((View)tvDate.getParent(), tvDate);
 
-        if(getArguments() != null) {
+        if(savedInstanceState != null){
+            mDate = new Date(savedInstanceState.getLong("currentDate"));
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
+            tvDate.setText(formatter.format(mDate));
+            tvFromTime.setText(savedInstanceState.getString("fromTime"));
+            tvToTime.setText(savedInstanceState.getString("toTime"));
+        } else if(getArguments() != null) {
             mDate = new Date(getArguments().getLong("currentDate"));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
@@ -97,6 +104,13 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         setFromToTime();
         Unavailability u = new Unavailability(teacher, fromTime, toTime);
         db.insertUnavailability(u);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong("currentDate", mDate.getTime());
+        outState.putString("fromTime", tvFromTime.getText().toString());
+        outState.putString("toTime", tvToTime.getText().toString());
     }
 }
 
