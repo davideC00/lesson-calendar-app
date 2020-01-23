@@ -29,6 +29,8 @@
     <string name="str_show">Mostra</string>
     <string name="str_today_date">Data di oggi</string>
     <string name="str_unavailability">Indisponibilità</string>
-    <string name="welcome">Benvenuto</string>
+    <string name="welcome">"Benvenuto "</string>
     <string name="title_activity_teacher">Activity Insegnante</string>
+    <string name="srt_logout">Esci dall\'account</string>
+    <string name="str_cancel">Annulla</string>
 </resources>

@@ -3,6 +3,7 @@ package it.uniba.di.sms.orariolezioni.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;
+import it.uniba.di.sms.orariolezioni.data.model.User;
 import it.uniba.di.sms.orariolezioni.ui.SchedulerActivity;
 import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
@@ -33,13 +35,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(new DbHandler(getBaseContext())))
+
+        loginViewModel = ViewModelProviders
+                .of(this, new LoginViewModelFactory(new DbHandler(getBaseContext()), getPreferences(Context.MODE_PRIVATE)))
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -120,6 +125,12 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+
+        if(loginViewModel.isLoggenIn()){
+            User user = loginViewModel.getCachedUser();
+            loginViewModel.login(user.username, "password");
+        }
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

@@ -129,7 +129,7 @@ public class AddLessonFragment extends AddEventFragment  {
                     }
 
                 });
-                adb.setNegativeButton("Cancel", null);
+                adb.setNegativeButton(R.string.str_cancel, null);
                 adb.setTitle(getResources().getString(R.string.str_choose_teacher));
                 adb.show();
 

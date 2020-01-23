@@ -3,7 +3,10 @@ package it.uniba.di.sms.orariolezioni.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.SharedPreferences;
 import android.util.Patterns;
+
+import java.util.List;
 
 import it.uniba.di.sms.orariolezioni.data.LoginRepository;
 import it.uniba.di.sms.orariolezioni.data.Result;
@@ -29,6 +32,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String username, String password) {
+
         // can be launched in a separate asynchronous job
         Result<User> result = loginRepository.login(username, password);
 
@@ -66,4 +70,13 @@ public class LoginViewModel extends ViewModel {
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
     }
+
+    public boolean isLoggenIn(){
+        return loginRepository.isLoggedIn();
+    }
+
+    public User getCachedUser(){
+        return loginRepository.getCachedUser();
+    }
+
 }

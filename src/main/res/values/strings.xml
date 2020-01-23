@@ -62,5 +62,7 @@
     <string name="str_choose_teacher">Choose the Teacher</string>
     <string name="str_choose_subject">Choose the Subject</string>
     <string name="str_accept">Accept</string>
+    <string name="srt_logout">Log out</string>
+    <string name="str_cancel">Cancel</string>
 
 </resources>
