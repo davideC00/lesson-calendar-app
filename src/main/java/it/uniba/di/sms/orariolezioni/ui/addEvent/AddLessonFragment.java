@@ -64,7 +64,7 @@ public class AddLessonFragment extends AddEventFragment  {
         teachers = db.getTeachers();
 
 
-        if(savedInstanceState != null){
+        if(savedInstanceState != null){ // When configuration has changed restore values of Views
             mDate = new Date(savedInstanceState.getLong("currentDate"));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
@@ -74,7 +74,6 @@ public class AddLessonFragment extends AddEventFragment  {
             tvSubjectChoose.setText(savedInstanceState.getString("subjectChoose"));
             subjects = db.getTeacherSubjects(tvTeacherChoose.getText().toString()); //get the subject for the teacher
         } else if(getArguments() != null) { // First creation
-
             mDate = new Date(getArguments().getLong("currentDate"));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
@@ -119,6 +118,7 @@ public class AddLessonFragment extends AddEventFragment  {
                 }
             }
         });
+
 
         ((View)tvTeacherChoose.getParent()).setOnClickListener(new View.OnClickListener() {
             @Override

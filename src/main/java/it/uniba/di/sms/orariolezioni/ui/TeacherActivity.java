@@ -75,7 +75,7 @@ public class TeacherActivity extends AppCompatActivity implements MenuItem.OnMen
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if(item.getItemId() == R.id.nav_logout){
+        if(item.getItemId() == R.id.nav_logout){ // Handle Log Out click
             LoginRepository loginRepository = LoginRepository.getInstance(new DbHandler(this), getPreferences(Context.MODE_PRIVATE));
             loginRepository.logout();
 

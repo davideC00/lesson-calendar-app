@@ -76,7 +76,7 @@ public class SchedulerActivity extends AppCompatActivity implements MenuItem.OnM
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if(item.getItemId() == R.id.nav_logout){
+        if(item.getItemId() == R.id.nav_logout){ // Handle LogOut click
             LoginRepository loginRepository = LoginRepository.getInstance(new DbHandler(this), getPreferences(Context.MODE_PRIVATE));
             loginRepository.logout();
 

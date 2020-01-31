@@ -28,8 +28,6 @@ import static it.uniba.di.sms.orariolezioni.data.DbContract.*;
 
 public class DbHandler extends SQLiteOpenHelper {
 
-
-
     public DbHandler(Context context){
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -48,6 +46,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public void populateDatabase(SQLiteDatabase db) {
 
+        /* Un comment if you want add lessons too
         Lesson lesson = new Lesson("teacher1", "math",
                 (new GregorianCalendar(2019, 11, 2, 15, 30, 0)).getTime(),
                 (new GregorianCalendar(2019, 11, 2, 17, 48, 0)).getTime());
@@ -57,6 +56,8 @@ public class DbHandler extends SQLiteOpenHelper {
         Lesson lesson3 = new Lesson( "teacher3", "science",
                 (new GregorianCalendar(2019, 11, 3, 0, 0, 0)).getTime(),
                 (new GregorianCalendar(2019, 11, 3, 24, 0, 0)).getTime());
+
+         */
 
         User user0 = new User("scheduler", "scheduler");
         User user1 = new User("impedovo", "teacher");
@@ -80,6 +81,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
         ContentValues cValues = new ContentValues();
 
+        // Insert Subjects
         for(Subject subject : subjects){
             cValues.clear();
             cValues.put(SubjectContract.KEY_NAME, subject.name);
@@ -87,6 +89,7 @@ public class DbHandler extends SQLiteOpenHelper {
             db.insert(SubjectContract.TABLE_NAME, null, cValues);
         }
 
+        // Insert Users
         for (User user : users){
             cValues.clear();
             cValues.put(UserContract.KEY_USERNAME, user.username);
@@ -156,6 +159,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
         String query = "SELECT " + SubjectContract.KEY_NAME + " FROM " + SubjectContract.TABLE_NAME
                 + " WHERE " + SubjectContract.KEY_TEACHER + " = '" + username + "'";
+
         Cursor cursor = db.rawQuery(query, null);
         while(cursor.moveToNext()){
             subjects.add(cursor.getString(cursor.getColumnIndex(SubjectContract.KEY_NAME)));
@@ -187,9 +191,11 @@ public class DbHandler extends SQLiteOpenHelper {
     public ArrayList<Request> getRequestsOf(String teacher) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Request> requests = new ArrayList<>();
+
         String rawQuery = "SELECT * FROM " + RequestContract.TABLE_NAME
                 + " WHERE " + RequestContract.KEY_TO_TEACHER + " = '" + teacher + "'";
         Cursor cursor = db.rawQuery(rawQuery, null);
+
         while(cursor.moveToNext()){
             Request request = new Request(
                     cursor.getInt(cursor.getColumnIndex(RequestContract.KEY_ID)),
@@ -208,7 +214,7 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(LessonContract.KEY_TEACHER, request.toTeacher);
-        // cv.put(LessonContract.KEY_SUBJECT, request.subject);
+        // cv.put(LessonContract.KEY_SUBJECT, request.subject); Currently commented because it is not supported
         db.update(LessonContract.TABLE_NAME, cv, LessonContract.KEY_ID+" = ?", new String[]{String.valueOf(request.lesson)});
         deleteRequest(request);
         db.close();

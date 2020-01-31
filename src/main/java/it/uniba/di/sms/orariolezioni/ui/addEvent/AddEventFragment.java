@@ -79,13 +79,17 @@ public abstract class AddEventFragment extends Fragment {
         });
     }
 
-
+    // Convert text of textView into Dates
     protected void setFromToTime(){
         Calendar c = Calendar.getInstance();
         c.setTime(mDate);
+
+        // Convert text of tvFromTIme
         c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tvFromTime.getText().toString().split(":")[0]));
         c.set(Calendar.MINUTE, Integer.valueOf(tvFromTime.getText().toString().split(":")[1]));
         fromTime = c.getTime();
+
+        // Convert text of tvToTime
         c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tvToTime.getText().toString().split(":")[0]));
         c.set(Calendar.MINUTE, Integer.valueOf(tvToTime.getText().toString().split(":")[1]));
         toTime = c.getTime();
@@ -94,17 +98,20 @@ public abstract class AddEventFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        // Don't show action bar
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        // Restore action bar
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
     protected void navToHome(){
         Bundle bundle = new Bundle();
+        // pass date to home fragment
         bundle.putLong("date", mDate.getTime());
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.action_nav_add_lesson_to_nav_home, bundle);

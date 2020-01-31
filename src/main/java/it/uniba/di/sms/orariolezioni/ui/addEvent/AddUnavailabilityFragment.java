@@ -41,7 +41,7 @@ public class AddUnavailabilityFragment extends AddEventFragment {
         setTimePicker((View)tvToTime.getParent(), tvToTime);
         setDatePicker((View)tvDate.getParent(), tvDate);
 
-        if(savedInstanceState != null){
+        if(savedInstanceState != null){ // When configuration has changed restore values of Views
             mDate = new Date(savedInstanceState.getLong("currentDate"));
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy", getResources().getConfiguration().locale);
             tvDate.setText(formatter.format(mDate));
