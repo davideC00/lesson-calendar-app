@@ -6,13 +6,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import it.uniba.di.sms.orariolezioni.OrarioLezioniApplication;
 import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.DbHandler;

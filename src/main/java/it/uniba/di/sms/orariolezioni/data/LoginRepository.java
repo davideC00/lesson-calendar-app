@@ -2,7 +2,6 @@ package it.uniba.di.sms.orariolezioni.data;
 
 import android.content.SharedPreferences;
 
-
 import it.uniba.di.sms.orariolezioni.data.model.User;
 
 /**

@@ -3,15 +3,12 @@ package it.uniba.di.sms.orariolezioni.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.SharedPreferences;
 import android.util.Patterns;
 
-import java.util.List;
-
+import it.uniba.di.sms.orariolezioni.R;
 import it.uniba.di.sms.orariolezioni.data.LoginRepository;
 import it.uniba.di.sms.orariolezioni.data.Result;
 import it.uniba.di.sms.orariolezioni.data.model.User;
-import it.uniba.di.sms.orariolezioni.R;
 
 public class LoginViewModel extends ViewModel {
 

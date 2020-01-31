@@ -1,7 +1,5 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import java.util.Calendar;

@@ -1,7 +1,10 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +13,6 @@ import android.view.animation.AlphaAnimation;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.ViewModelProviders;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,9 +59,9 @@ public class HomeFragment extends Fragment implements OnPreDrawDaySlidePage, Vie
             mCurrentDate = homeViewModel.getCentralDate();
         }
 
-        lastPosition = pagerAdapter.LOOPS_COUNT/2;
-        leftLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max left position reached
-        rightLastPosition = pagerAdapter.LOOPS_COUNT/2; // The max right position reached
+        lastPosition = DaySlidePageAdapter.LOOPS_COUNT /2;
+        leftLastPosition = DaySlidePageAdapter.LOOPS_COUNT /2; // The max left position reached
+        rightLastPosition = DaySlidePageAdapter.LOOPS_COUNT /2; // The max right position reached
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         tvDate = root.findViewById(R.id.tvCurrentDate);

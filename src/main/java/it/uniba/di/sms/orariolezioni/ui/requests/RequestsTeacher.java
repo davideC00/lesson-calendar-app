@@ -31,7 +31,7 @@ public class RequestsTeacher extends Fragment {
         View root = inflater.inflate(R.layout.fragment_change_requests, container, false);
 
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        final RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.rvRequests);
+        final RecyclerView recyclerView = root.findViewById(R.id.rvRequests);
 
         requestsTeacherViewModel.getRequestsOf().observe(this, new Observer<ArrayList<Request>>() {
             @Override

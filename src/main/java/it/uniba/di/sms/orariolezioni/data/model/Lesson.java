@@ -1,6 +1,5 @@
 package it.uniba.di.sms.orariolezioni.data.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Lesson extends Event{

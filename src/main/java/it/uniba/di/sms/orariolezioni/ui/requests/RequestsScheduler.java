@@ -1,16 +1,16 @@
 package it.uniba.di.sms.orariolezioni.ui.requests;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.annotation.Nullable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class RequestsScheduler extends Fragment {
         View root = inflater.inflate(R.layout.fragment_change_requests, container, false);
 
         final NavController navController  = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        final RecyclerView recyclerView= (RecyclerView)root.findViewById(R.id.rvRequests);
+        final RecyclerView recyclerView= root.findViewById(R.id.rvRequests);
 
         requestsSchedulerViewModel.getAllRequests().observe(this, new Observer<ArrayList<Request>>() {
             @Override

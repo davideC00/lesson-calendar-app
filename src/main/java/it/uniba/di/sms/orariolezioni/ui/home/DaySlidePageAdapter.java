@@ -1,6 +1,5 @@
 package it.uniba.di.sms.orariolezioni.ui.home;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

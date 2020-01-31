@@ -12,18 +12,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
-
 import it.uniba.di.sms.orariolezioni.data.model.Lesson;
+import it.uniba.di.sms.orariolezioni.data.model.Request;
 import it.uniba.di.sms.orariolezioni.data.model.Subject;
 import it.uniba.di.sms.orariolezioni.data.model.Unavailability;
 import it.uniba.di.sms.orariolezioni.data.model.User;
-import it.uniba.di.sms.orariolezioni.data.model.Request;
-import it.uniba.di.sms.orariolezioni.ui.TeacherActivity;
 
-import static it.uniba.di.sms.orariolezioni.data.DbContract.*;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.DB_NAME;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.DB_VERSION;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.LessonContract;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.RequestContract;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.SubjectContract;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.UnavailabilityContract;
+import static it.uniba.di.sms.orariolezioni.data.DbContract.UserContract;
 
 
 public class DbHandler extends SQLiteOpenHelper {
