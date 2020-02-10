@@ -63,9 +63,9 @@ public class DbHandler extends SQLiteOpenHelper {
          */
 
         User user0 = new User("scheduler", "scheduler");
-        User user1 = new User("impedovo", "teacher");
-        User user2 = new User("teacher", "teacher");
-        User user3 = new User("decarolis", "teacher");
+        User user1 = new User("teacher2", "teacher");
+        User user2 = new User("teacher1", "teacher");
+        User user3 = new User("teacher", "teacher");
         ArrayList<User> users = new ArrayList<>();
         users.add(user0);
         users.add(user1);
@@ -75,7 +75,7 @@ public class DbHandler extends SQLiteOpenHelper {
         Subject sub1 = new Subject("science", user2.username);
         Subject sub2 = new Subject("math", user1.username);
         Subject sub3 = new Subject("informatics", user2.username);
-        Subject sub4 = new Subject("piu", user3.username);
+        Subject sub4 = new Subject("geo", user3.username);
         ArrayList<Subject> subjects = new ArrayList<>();
         subjects.add(sub1);
         subjects.add(sub2);
@@ -400,13 +400,13 @@ public class DbHandler extends SQLiteOpenHelper {
             case "impedovo":
                 User impedovo =
                         new User(
-                                "impedovo",
+                                "teacher1",
                                 "teacher");
                 return new Result.Success<>(impedovo);
             case "decarolis":
                 User decarolis =
                         new User(
-                                "decarolis",
+                                "teacher2",
                                 "teacher");
                 return new Result.Success<>(decarolis);
         }
